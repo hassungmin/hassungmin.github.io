@@ -8,16 +8,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
+  /* ==================== CSS VARIABLES ==================== */
   :root {
     --primary: #0f4c81;
     --success: #2e7d32;
     --warning: #ed6c02;
+    --danger: #d32f2f;
     --bg: #f4f6f8;
     --card: #ffffff;
     --text: #333;
     --border: #ccc;
   }
 
+  /* ==================== LAYOUT ==================== */
   body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background: var(--bg);
@@ -34,42 +37,96 @@
     padding: 25px;
   }
 
-  h1 { text-align: center; color: var(--primary); margin-top: 0; margin-bottom: 25px; }
+  h1 { 
+    text-align: center; 
+    color: var(--primary); 
+    margin-top: 0; 
+    margin-bottom: 25px; 
+  }
 
   .grid-2 {
     display: grid;
     grid-template-columns: 350px 1fr;
     gap: 25px;
   }
-  @media (max-width: 1100px) { .grid-2 { grid-template-columns: 1fr; } }
+  
+  @media (max-width: 1100px) { 
+    .grid-2 { 
+      grid-template-columns: 1fr; 
+    } 
+  }
 
+  /* ==================== PANELS ==================== */
   .panel {
-    border: 1px solid var(--border); padding: 15px;
-    border-radius: 6px; background: #fdfdfd; margin-bottom: 20px;
+    border: 1px solid var(--border); 
+    padding: 15px;
+    border-radius: 6px; 
+    background: #fdfdfd; 
+    margin-bottom: 20px;
   }
   
   .panel-title {
-    font-weight: bold; color: var(--primary); border-bottom: 2px solid #eee;
-    padding-bottom: 8px; margin-bottom: 15px; display: block;
+    font-weight: bold; 
+    color: var(--primary); 
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px; 
+    margin-bottom: 15px; 
+    display: block;
   }
 
-  label { display: block; margin-top: 10px; font-weight: 600; font-size: 0.9rem; }
+  /* ==================== FORM ELEMENTS ==================== */
+  label { 
+    display: block; 
+    margin-top: 10px; 
+    font-weight: 600; 
+    font-size: 0.9rem; 
+  }
   
-  input[type="number"], select, input[type="file"] {
-    width: 100%; padding: 8px; margin-top: 5px;
-    border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box;
+  input[type="number"], 
+  select, 
+  input[type="file"] {
+    width: 100%; 
+    padding: 8px; 
+    margin-top: 5px;
+    border: 1px solid #aaa; 
+    border-radius: 4px; 
+    box-sizing: border-box;
   }
-  input[readonly] { background-color: #e9ecef; color: #555; }
+  
+  input[readonly] { 
+    background-color: #e9ecef; 
+    color: #555; 
+  }
 
+  /* ==================== BUTTONS ==================== */
   button {
-    background: var(--primary); color: white; border: none;
-    padding: 12px 20px; width: 100%; font-size: 1rem; cursor: pointer;
-    border-radius: 4px; margin-top: 15px; font-weight: bold;
+    background: var(--primary); 
+    color: white; 
+    border: none;
+    padding: 12px 20px; 
+    width: 100%; 
+    font-size: 1rem; 
+    cursor: pointer;
+    border-radius: 4px; 
+    margin-top: 15px; 
+    font-weight: bold;
   }
-  button:hover { background: #0a355c; }
-  .btn-download { background: #d32f2f; margin-top: 10px; display: none; }
-  .btn-download:hover { background: #b71c1c; }
+  
+  button:hover { 
+    background: #0a355c; 
+  }
+  
+  .btn-download { 
+    background: var(--danger); 
+    margin-top: 10px; 
+    display: none; 
+  }
+  
+  .btn-download:hover { 
+    background: #b71c1c; 
+  }
 
+  /* ==================== CANVAS ==================== */
   #canvasWrapper {
     width: 100%;
     overflow-x: auto;
@@ -77,33 +134,88 @@
     background: #eee;
     padding: 20px;
     border: 1px solid #999;
-    min-height: 550px; 
+    min-height: 800px; 
     display: flex;
     align-items: flex-start;
   }
   
-  canvas { background: white; box-shadow: 0 0 15px rgba(0,0,0,0.1); display: block; cursor: default; }
-
-  .table-scroll { max-height: 400px; overflow-y: auto; font-size: 0.85rem; }
-  table { width: 100%; border-collapse: collapse; }
-  th, td { border: 1px solid #ddd; padding: 6px; text-align: center; }
-  th { background-color: var(--primary); color: white; position: sticky; top: 0; }
-  
-  .summary-bar {
-    display: flex; gap: 20px; background: #e3f2fd;
-    padding: 15px; border-radius: 5px; margin-bottom: 15px; font-size: 1rem;
-    align-items: center; justify-content: space-around;
+  canvas { 
+    background: white; 
+    box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+    display: block; 
+    cursor: default; 
   }
-  .big-stat { font-size: 1.4rem; font-weight: bold; color: var(--primary); }
 
+  /* ==================== TABLES ==================== */
+  .table-scroll { 
+    max-height: 400px; 
+    overflow-y: auto; 
+    font-size: 0.85rem; 
+  }
+  
+  table { 
+    width: 100%; 
+    border-collapse: collapse; 
+  }
+  
+  th, td { 
+    border: 1px solid #ddd; 
+    padding: 6px; 
+    text-align: center; 
+  }
+  
+  th { 
+    background-color: var(--primary); 
+    color: white; 
+    position: sticky; 
+    top: 0; 
+  }
+  
+  /* ==================== SUMMARY & STATS ==================== */
+  .summary-bar {
+    display: flex; 
+    gap: 20px; 
+    background: #e3f2fd;
+    padding: 15px; 
+    border-radius: 5px; 
+    margin-bottom: 15px; 
+    font-size: 1rem;
+    align-items: center; 
+    justify-content: space-around;
+  }
+  
+  .big-stat { 
+    font-size: 1.4rem; 
+    font-weight: bold; 
+    color: var(--primary); 
+  }
+
+  /* ==================== SUGGESTIONS ==================== */
   .suggestion-box {
-    margin-top: 15px; padding: 15px; border-radius: 6px;
+    margin-top: 15px; 
+    padding: 15px; 
+    border-radius: 6px;
     display: none; 
   }
-  .suggest-good { background-color: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; }
-  .suggest-better { background-color: #fff3e0; border: 1px solid #ffcc80; color: #e65100; }
-  .suggestion-header { font-weight: bold; font-size: 1.1rem; margin-bottom: 5px; display: block;}
-
+  
+  .suggest-good { 
+    background-color: #e8f5e9; 
+    border: 1px solid #a5d6a7; 
+    color: var(--success); 
+  }
+  
+  .suggest-better { 
+    background-color: #fff3e0; 
+    border: 1px solid #ffcc80; 
+    color: #e65100; 
+  }
+  
+  .suggestion-header { 
+    font-weight: bold; 
+    font-size: 1.1rem; 
+    margin-bottom: 5px; 
+    display: block;
+  }
 </style>
 </head>
 <body>
@@ -112,7 +224,9 @@
   <h1>Palletizer: Smart Fit & Optimizer</h1>
   
   <div class="grid-2">
+    <!-- ==================== LEFT PANEL ==================== -->
     <div>
+      <!-- ULD Configuration Panel -->
       <div class="panel">
         <span class="panel-title">1. Default ULD Configuration</span>
         <label>Primary Unit Type</label>
@@ -137,16 +251,26 @@
         </label>
       </div>
 
+      <!-- File Upload Panel -->
       <div class="panel">
         <span class="panel-title">2. Upload Cargo</span>
         <input type="file" id="csvFile" accept=".csv">
         <button onclick="processCSV()">Generate Load Plan</button>
-        <button id="btnDownloadPDF" class="btn-download" onclick="downloadPDF()">Download Visual & Manifest PDF</button>
+        <button id="btnDownloadSimulation" class="btn-download" onclick="downloadSimulationPDF()">
+          Download Pallet Simulation PDF
+        </button>
+        <button id="btnDownloadManifest" class="btn-download" onclick="downloadManifestPDF()">
+          Download Manifest PDF
+        </button>
       </div>
+      
+      <!-- Error Log -->
       <div id="errorLog" style="color:black; font-size:0.85rem; margin-top:5px; border: 1px solid transparent; padding: 8px; border-radius: 4px; line-height: 1.4;"></div>
     </div>
 
+    <!-- ==================== RIGHT PANEL ==================== -->
     <div>
+      <!-- Summary Panel -->
       <div class="panel" style="border-left: 4px solid var(--primary);">
         <span class="panel-title">Load Summary</span>
         <div class="summary-bar">
@@ -157,13 +281,18 @@
         <div id="optimizationPanel" class="suggestion-box"></div>
       </div>
 
+      <!-- Visual Layout Panel -->
       <div class="panel" id="export-visual">
-        <span class="panel-title">Visual Layout <small style="font-weight:normal; color:#666;">(Drag to move | Double-click to rotate)</small></span>
+        <span class="panel-title">
+          Visual Layout 
+          <small style="font-weight:normal; color:#666;">(Drag to move | Right-click crate to rotate)</small>
+        </span>
         <div id="canvasWrapper">
           <canvas id="loadCanvas"></canvas>
         </div>
       </div>
       
+      <!-- Manifest Panel -->
       <div class="panel" id="export-manifest">
         <span class="panel-title">Manifest Details</span>
         <div class="table-scroll">
@@ -186,150 +315,243 @@
 </div>
 
 <script>
-  // --- CORE DATA ---
-  const ulds = {
-    LD3:   { name:"LD3", l: 153, w: 156, h: 163 },
-    PMC:   { name:"PMC", l: 303, w: 230, h: 290 },
-    PAG:   { name:"PAG", l: 303, w: 209, h: 290 },
-    PZA:   { name:"PZA", l: 483, w: 230, h: 290 },
-    PGA20: { name:"PGA20", l: 604, w: 245, h: 290 },
-    PLA:   { name:"PLA", l: 303, w: 140, h: 290 } 
-  };
-  let allPalletLoads = []; 
-  let globalOversizedItems = []; // To track crates that didn't fit
+  // ========================================
+  // CONSTANTS & CONFIGURATION
+  // ========================================
   
-  // Interaction variables
-  let isDragging = false;
-  let draggedStack = null;
-  let draggedItem = null; // NEW: for individual item dragging
-  let draggedPallet = null; 
-  let originalPallet = null; 
-  let originalStack = null; // NEW: track original stack when dragging individual items
-  let originalPos = { x: 0, y: 0 }; 
-  let dragOffset = { x: 0, y: 0 }; 
-  let ghostGlobalPos = { x: 0, y: 0 }; 
-  let isDraggingInvalid = false; // NEW: for invalid cargo dragging
-  let draggedInvalidItem = null; // NEW: for invalid cargo dragging
-  let invalidAreaBounds = null; // NEW: to store invalid area bounds
+  const ULD_DEFINITIONS = {
+    LD3:   { name: "LD3",   l: 153, w: 156, h: 163 },
+    PMC:   { name: "PMC",   l: 303, w: 230, h: 290 },
+    PAG:   { name: "PAG",   l: 303, w: 209, h: 290 },
+    PZA:   { name: "PZA",   l: 483, w: 230, h: 290 },
+    PGA20: { name: "PGA20", l: 604, w: 245, h: 290 },
+    PLA:   { name: "PLA",   l: 303, w: 140, h: 290 } 
+  };
 
-  let globalScale = 1;
-  let isCurrentPosInvalid = false;
-  const PADDING = 40;
-  const GAP = 80;
-  const BOX_START_Y = 50;
+  const CANVAS_CONFIG = {
+    PADDING: 40,
+    GAP: 80,
+    BOX_START_Y: 50,
+    PALLETS_PER_ROW: 3,
+    ROW_GAP: 120,
+    VISUAL_LIFT: 6 // Visual offset for stacked items
+  };
 
+  const INVALID_AREA_CONFIG = {
+    WIDTH: 340,
+    SCALE_FACTOR: 0.5
+  };
+
+  // ========================================
+  // STATE MANAGEMENT
+  // ========================================
+  
+  let state = {
+    // Core data
+    allPalletLoads: [],
+    globalOversizedItems: [],
+    globalScale: 1,
+    
+    // Dragging state
+    isDragging: false,
+    draggedStack: null,
+    draggedItem: null,
+    draggedPallet: null,
+    originalPallet: null,
+    originalStack: null,
+    originalPos: { x: 0, y: 0 },
+    dragOffset: { x: 0, y: 0 },
+    ghostGlobalPos: { x: 0, y: 0 },
+    isCurrentPosInvalid: false,
+    
+    // Invalid area dragging
+    isDraggingInvalid: false,
+    draggedInvalidItem: null,
+    invalidAreaBounds: null,
+    
+    // Context menu - NEW: support both crate and pallet menus
+    rightClickedPallet: null,
+    rightClickedCrate: null,
+    rightClickedStack: null
+  };
+
+  // ========================================
+  // INITIALIZATION
+  // ========================================
+  
   window.onload = function() { 
     updateULD(); 
     initInteractions();
   };
 
+  // ========================================
+  // ULD MANAGEMENT
+  // ========================================
+  
   function updateULD() {
     const type = document.getElementById("uldSelect").value;
-    const data = ulds[type];
+    const data = ULD_DEFINITIONS[type];
+    
+    // Update input fields
     document.getElementById("cL").value = data.l;
     document.getElementById("cW").value = data.w;
     document.getElementById("cH").value = data.h;
+    
+    // Reset canvas and state
+    resetCanvas();
+    resetStats();
+    clearErrorLog();
+    
+    state.globalOversizedItems = [];
+    document.getElementById("btnDownloadSimulation").style.display = "none";
+    document.getElementById("btnDownloadManifest").style.display = "none";
+  }
+
+  function resetCanvas() {
     const canvas = document.getElementById("loadCanvas");
     const ctx = canvas.getContext("2d");
-    ctx.clearRect(0,0,canvas.width, canvas.height);
-    canvas.width=0; canvas.height=0;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.width = 0;
+    canvas.height = 0;
+  }
+
+  function resetStats() {
     document.getElementById("resultTable").querySelector("tbody").innerHTML = "";
     document.getElementById("statTotalItems").innerText = "0";
     document.getElementById("statPalletCount").innerText = "0";
     document.getElementById("statEfficiency").innerText = "0%";
     document.getElementById("optimizationPanel").style.display = "none";
-    document.getElementById("btnDownloadPDF").style.display = "none";
-    document.getElementById("errorLog").innerHTML = "";
-    document.getElementById("errorLog").style.borderColor = "transparent";
-    document.getElementById("errorLog").style.backgroundColor = "transparent";
-    globalOversizedItems = [];
   }
 
+  function clearErrorLog() {
+    const errorLog = document.getElementById("errorLog");
+    errorLog.innerHTML = "";
+    errorLog.style.borderColor = "transparent";
+    errorLog.style.backgroundColor = "transparent";
+  }
+
+  // ========================================
+  // CSV PROCESSING
+  // ========================================
+  
   function processCSV() {
     const fileInput = document.getElementById("csvFile");
     const errorDiv = document.getElementById("errorLog");
+    
     errorDiv.innerText = "";
-    if (!fileInput.files.length) { errorDiv.innerText = "Please select a file."; return; }
+    
+    if (!fileInput.files.length) { 
+      errorDiv.innerText = "Please select a file."; 
+      return; 
+    }
+    
     const reader = new FileReader();
     reader.onload = (e) => runMainSimulation(e.target.result);
     reader.readAsText(fileInput.files[0]);
-    document.getElementById("btnDownloadPDF").style.display = "block";
+    
+    document.getElementById("btnDownloadSimulation").style.display = "block";
+    document.getElementById("btnDownloadManifest").style.display = "block";
   }
 
   function parseCSV(text) {
     const lines = text.split('\n');
-    const res = [];
+    const items = [];
+    
     lines.forEach(line => {
-      let cl = line.trim();
-      if(!cl) return;
-      const parts = cl.split(/[,\t]+/);
-      if(parts.length >= 4) {
-         const l = parseFloat(parts[1]);
-         const d = parseFloat(parts[2]);
-         const h = parseFloat(parts[3]);
-         if(!isNaN(l)) res.push({ id: parts[0], l:l, d:d, h:h });
+      const cleanLine = line.trim();
+      if (!cleanLine) return;
+      
+      const parts = cleanLine.split(/[,\t]+/);
+      
+      if (parts.length >= 4) {
+        const length = parseFloat(parts[1]);
+        const depth = parseFloat(parts[2]);
+        const height = parseFloat(parts[3]);
+        
+        if (!isNaN(length)) {
+          items.push({ 
+            id: parts[0], 
+            l: length, 
+            d: depth, 
+            h: height 
+          });
+        }
       }
     });
-    return res;
+    
+    return items;
   }
 
+  // ========================================
+  // ULD SELECTION & OPTIMIZATION
+  // ========================================
+  
   function findBestULD(item) {
-    const itemW = Math.min(item.l, item.d);
-    const itemL = Math.max(item.l, item.d);
+    const itemWidth = Math.min(item.l, item.d);
+    const itemLength = Math.max(item.l, item.d);
     let bestFit = null;
     let minDeadSpace = Infinity;
-    for (const key in ulds) {
-      const u = ulds[key];
-      let fit = (itemW <= u.w && itemL <= u.l && item.h <= u.h);
-      if (fit) {
-        const deadSpace = (u.w * u.l) - (itemW * itemL);
-        if (deadSpace < minDeadSpace) { minDeadSpace = deadSpace; bestFit = u; }
+    
+    for (const key in ULD_DEFINITIONS) {
+      const uld = ULD_DEFINITIONS[key];
+      const fits = (itemWidth <= uld.w && itemLength <= uld.l && item.h <= uld.h);
+      
+      if (fits) {
+        const deadSpace = (uld.w * uld.l) - (itemWidth * itemLength);
+        if (deadSpace < minDeadSpace) { 
+          minDeadSpace = deadSpace; 
+          bestFit = uld; 
+        }
       }
     }
+    
     return bestFit;
   }
 
-  function canItemFitInULD(item, uldData) {
-    const itemW = Math.min(item.l, item.d);
-    const itemL = Math.max(item.l, item.d);
-    return (itemW <= uldData.w && itemL <= uldData.l && item.h <= uldData.h);
+  function canItemFitInULD(item, uld) {
+    const itemWidth = Math.min(item.l, item.d);
+    const itemLength = Math.max(item.l, item.d);
+    return (itemWidth <= uld.w && itemLength <= uld.l && item.h <= uld.h);
   }
 
-  function findAllFloorPositions(w, h, binW, binH, rects) {
-    let candidates = [{x:0, y:0}];
+  function getMaxStackLayers(uldName) {
+    return 2; // All ULDs support max 2 layers
+  }
+
+  // ========================================
+  // PACKING ALGORITHM - POSITION FINDING
+  // ========================================
+  
+  function findAllFloorPositions(width, height, binWidth, binHeight, existingRects) {
+    const positions = [];
+    const step = 1;
     
-    // Generate candidate positions from existing rectangles
-    rects.forEach(r => {
-      candidates.push(
-        { x: r.x + r.visualW, y: r.y },
-        { x: r.x, y: r.y + r.visualH },
-        { x: r.x + r.visualW, y: 0 },
-        { x: 0, y: r.y + r.visualH }
-      );
-    });
-    
-    // Filter valid positions (no collision and within bounds)
-    let validPositions = [];
-    for (let p of candidates) {
-      if (p.x + w <= binW && p.y + h <= binH) {
-        let collision = false;
-        for (let r of rects) {
-          if (p.x < r.x + r.visualW && p.x + w > r.x && 
-              p.y < r.y + r.visualH && p.y + h > r.y) {
-            collision = true;
+    for (let y = 0; y <= binHeight - height; y += step) {
+      for (let x = 0; x <= binWidth - width; x += step) {
+        const position = { x, y };
+        
+        // Check collision with existing rectangles
+        let hasCollision = false;
+        for (let rect of existingRects) {
+          if (position.x < rect.x + rect.visualW && 
+              position.x + width > rect.x && 
+              position.y < rect.y + rect.visualH && 
+              position.y + height > rect.y) {
+            hasCollision = true;
             break;
           }
         }
-        if (!collision) {
-          validPositions.push(p);
+        
+        if (!hasCollision) {
+          positions.push(position);
         }
       }
     }
     
-    return validPositions;
+    return positions;
   }
 
-  function selectBestPosition(positions, w, h, binW, binH, rects) {
+  function selectBestPosition(positions, width, height, binWidth, binHeight, existingRects) {
     if (positions.length === 0) return null;
     
     // Score each position based on multiple heuristics
@@ -342,12 +564,16 @@
       
       // Prefer positions that touch existing rectangles (reduce fragmentation)
       let touchCount = 0;
-      for (let r of rects) {
+      for (let rect of existingRects) {
         // Check if touching on any side
-        if ((Math.abs(pos.x - (r.x + r.visualW)) < 0.1 && pos.y < r.y + r.visualH && pos.y + h > r.y) ||
-            (Math.abs((pos.x + w) - r.x) < 0.1 && pos.y < r.y + r.visualH && pos.y + h > r.y) ||
-            (Math.abs(pos.y - (r.y + r.visualH)) < 0.1 && pos.x < r.x + r.visualW && pos.x + w > r.x) ||
-            (Math.abs((pos.y + h) - r.y) < 0.1 && pos.x < r.x + r.visualW && pos.x + w > r.x)) {
+        if ((Math.abs(pos.x - (rect.x + rect.visualW)) < 0.1 && 
+             pos.y < rect.y + rect.visualH && pos.y + height > rect.y) ||
+            (Math.abs((pos.x + width) - rect.x) < 0.1 && 
+             pos.y < rect.y + rect.visualH && pos.y + height > rect.y) ||
+            (Math.abs(pos.y - (rect.y + rect.visualH)) < 0.1 && 
+             pos.x < rect.x + rect.visualW && pos.x + width > rect.x) ||
+            (Math.abs((pos.y + height) - rect.y) < 0.1 && 
+             pos.x < rect.x + rect.visualW && pos.x + width > rect.x)) {
           touchCount++;
         }
       }
@@ -356,406 +582,566 @@
       // Prefer positions against walls
       if (pos.x === 0) score += 300;
       if (pos.y === 0) score += 300;
-      if (pos.x + w === binW) score += 200;
-      if (pos.y + h === binH) score += 200;
+      if (pos.x + width === binWidth) score += 200;
+      if (pos.y + height === binHeight) score += 200;
       
       // Calculate wasted space (horizontal and vertical)
-      let wastedHorizontal = binW - (pos.x + w);
-      let wastedVertical = binH - (pos.y + h);
+      let wastedHorizontal = binWidth - (pos.x + width);
+      let wastedVertical = binHeight - (pos.y + height);
       score -= wastedHorizontal * 5;
       score -= wastedVertical * 5;
       
       return { pos, score };
     });
     
-    // Sort by score (highest first)
     scoredPositions.sort((a, b) => b.score - a.score);
-    
     return scoredPositions[0].pos;
   }
 
-  function packItems(uldData, itemsInput, allowStacking) {
-    let remainingItems = JSON.parse(JSON.stringify(itemsInput));
-    let palletLoads = [];
-    let oversizedItems = [];
-
-    // Improved sorting: prioritize larger items and consider both dimensions
-    remainingItems.sort((a, b) => {
-        const areaA = a.l * a.d;
-        const areaB = b.l * b.d;
-        const maxDimA = Math.max(a.l, a.d);
-        const maxDimB = Math.max(b.l, b.d);
-        // Sort by area first, then by max dimension, then by height
-        return (areaB - areaA) || (maxDimB - maxDimA) || (b.h - a.h);
-    });
-
-    let safety = 0;
-    while(remainingItems.length > 0 && safety < 1000) {
-      safety++;
-      let currentULD = { ...uldData }; 
-      let currentStacks = [];
-      let nextPassItems = [];
-      const firstItem = remainingItems[0];
+  // ========================================
+  // PACKING ALGORITHM - STACKING
+  // ========================================
+  
+  function attemptStack(item, pallet, uldMaxLayers) {
+    if (!document.getElementById("chkStackable").checked) return null;
+    
+    const stacks = pallet.stacks || [];
+    
+    // Find stackable base (only if stack has 1 item and base item height matches)
+    for (let stack of stacks) {
+      if (stack.items.length >= uldMaxLayers) continue;
       
-      // Check if first item can fit in current ULD
-      if (!canItemFitInULD(firstItem, currentULD)) {
-        // Try to find a better ULD
-        const smartULD = findBestULD(firstItem);
-        if (smartULD) {
-          currentULD = smartULD;
-          currentULD.isSmartFit = true;
-        } else {
-          // Item is oversized for all available ULDs
-          oversizedItems.push(firstItem);
-          remainingItems.shift();
-          continue;
-        }
+      const baseItem = stack.items[0];
+      const topItem = stack.items[stack.items.length - 1];
+      
+      // Items must have same height to stack
+      if (Math.abs(baseItem.h - item.h) > 0.1) continue;
+      
+      // Check if new item fits on top
+      const canFitOnTop = (
+        item.visualW <= topItem.visualW && 
+        item.visualH <= topItem.visualH
+      );
+      
+      if (canFitOnTop) {
+        // Calculate centered offset
+        const offsetX = (topItem.visualW - item.visualW) / 2;
+        const offsetY = (topItem.visualH - item.visualH) / 2;
+        
+        item.stackOffsetX = offsetX;
+        item.stackOffsetY = offsetY;
+        item.isOnFloor = false;
+        
+        return stack;
       }
+    }
+    
+    return null;
+  }
 
-      // Try to place each item
-      for (let item of remainingItems) {
-        let placed = false;
+  // ========================================
+  // PACKING ALGORITHM - MAIN LOOP
+  // ========================================
+  
+  function packItemsIntoPallets(items, uldData) {
+    let pallets = [];
+    let currentPallet = null;
+    const uldMaxLayers = getMaxStackLayers(uldData.name);
+    
+    items.forEach(item => {
+      let placed = false;
+      
+      // Try existing pallets first
+      for (let pallet of pallets) {
+        // Check if pallet type matches
+        if (pallet.uldName !== uldData.name) continue;
         
-        // First check if item can fit in current ULD at all
-        if (!canItemFitInULD(item, currentULD)) {
-          nextPassItems.push(item);
-          continue;
-        }
-        
-        const visW = Math.min(item.l, item.d); 
-        const visH = Math.max(item.l, item.d);
-
-        // Try stacking first (if enabled)
-        if (allowStacking) {
-          let bestStackMatch = null;
-          let bestStackScore = -1;
-          
-          for (let stack of currentStacks) {
-            if (stack.items.length === 1) {
-              const bottom = stack.items[0];
-              if (visW <= bottom.visualW && visH <= bottom.visualH && 
-                  (stack.currentH + item.h <= currentULD.h)) {
-                // Calculate how well this item fits on this stack
-                let wastedArea = (bottom.visualW * bottom.visualH) - (visW * visH);
-                let score = 10000 - wastedArea; // Prefer tighter fits
-                if (score > bestStackScore) {
-                  bestStackScore = score;
-                  bestStackMatch = stack;
-                }
-              }
-            }
-          }
-          
-          if (bestStackMatch) {
-            bestStackMatch.items.push(item);
-            bestStackMatch.currentH += item.h;
-            item.visualW = visW;
-            item.visualH = visH;
-            item.x = bestStackMatch.x;
-            item.y = bestStackMatch.y;
-            item.z = bestStackMatch.currentH - item.h;
-            placed = true;
-          }
+        // Try stacking first
+        const stackTarget = attemptStack(item, pallet, uldMaxLayers);
+        if (stackTarget) {
+          stackTarget.items.push(item);
+          placed = true;
+          break;
         }
         
-        // If not stacked, try floor placement with improved algorithm
-        if (!placed) {
-          let positions = findAllFloorPositions(visW, visH, currentULD.w, currentULD.l, currentStacks);
-          let pos = selectBestPosition(positions, visW, visH, currentULD.w, currentULD.l, currentStacks);
-          
-          if (pos) {
-            currentStacks.push({ 
-              x: pos.x, 
-              y: pos.y, 
-              visualW: visW, 
-              visualH: visH, 
-              currentH: item.h, 
-              items: [item] 
-            });
-            item.visualW = visW;
-            item.visualH = visH;
-            item.x = pos.x;
-            item.y = pos.y;
-            item.z = 0;
-            placed = true;
-          }
-        }
+        // If stacking failed, try floor placement
+        const floorPositions = findAllFloorPositions(
+          item.visualW,
+          item.visualH,
+          pallet.uldW,
+          pallet.uldL,
+          pallet.stacks.map(s => ({
+            x: s.x,
+            y: s.y,
+            visualW: s.visualW,
+            visualH: s.visualH
+          }))
+        );
         
-        if (!placed) {
-          nextPassItems.push(item);
+        const bestPos = selectBestPosition(
+          floorPositions,
+          item.visualW,
+          item.visualH,
+          pallet.uldW,
+          pallet.uldL,
+          pallet.stacks.map(s => ({
+            x: s.x,
+            y: s.y,
+            visualW: s.visualW,
+            visualH: s.visualH
+          }))
+        );
+        
+        if (bestPos) {
+          item.isOnFloor = true;
+          pallet.stacks.push({
+            x: bestPos.x,
+            y: bestPos.y,
+            visualW: item.visualW,
+            visualH: item.visualH,
+            items: [item]
+          });
+          placed = true;
+          break;
         }
-      }
-
-      // If nothing could be placed, check if items are oversized
-      if (currentStacks.length === 0 && remainingItems.length > 0) {
-        // All remaining items are oversized
-        for (let item of remainingItems) {
-          if (!canItemFitInULD(item, uldData)) {
-            oversizedItems.push(item);
-          } else {
-            nextPassItems.push(item);
-          }
-        }
-        remainingItems = nextPassItems;
-        if (remainingItems.length === 0) break;
-        continue;
       }
       
-      if (currentStacks.length > 0) {
-        palletLoads.push({ 
-          uldName: currentULD.name, 
-          uldW: currentULD.w, 
-          uldL: currentULD.l, 
-          uldH: currentULD.h, 
-          isSmartFit: currentULD.isSmartFit || false, 
-          stacks: currentStacks 
+      // Create new pallet if needed
+      if (!placed) {
+        const newPallet = {
+          uldName: uldData.name,
+          uldW: uldData.w,
+          uldL: uldData.l,
+          uldH: uldData.h,
+          stacks: []
+        };
+        
+        item.isOnFloor = true;
+        newPallet.stacks.push({
+          x: 0,
+          y: 0,
+          visualW: item.visualW,
+          visualH: item.visualH,
+          items: [item]
         });
+        
+        pallets.push(newPallet);
       }
-      remainingItems = nextPassItems;
-    }
+    });
     
-    // Final check: any remaining items that couldn't be placed are oversized
-    for (let item of remainingItems) {
-      if (!canItemFitInULD(item, uldData)) {
-        oversizedItems.push(item);
-      }
-    }
-    
-    return { loads: palletLoads, remaining: oversizedItems };
+    return pallets;
   }
 
-  function runMainSimulation(csvText) {
-    const errorLog = document.getElementById("errorLog");
-    errorLog.innerHTML = "";
-    errorLog.style.borderColor = "transparent";
-    errorLog.style.backgroundColor = "transparent";
-    const selectedType = document.getElementById("uldSelect").value;
-    const selectedData = ulds[selectedType];
-    const allowStacking = document.getElementById("chkStackable").checked;
-    const rawItems = parseCSV(csvText);
+  // ========================================
+  // MAIN SIMULATION
+  // ========================================
+  
+  function runMainSimulation(csvData) {
+    clearErrorLog();
     
-    // Run packing
-    const result = packItems(selectedData, rawItems, allowStacking);
-    allPalletLoads = result.loads;
-    globalOversizedItems = result.remaining;
-
-    // Warning UI logic
-    let htmlOutput = "";
-    if (globalOversizedItems.length > 0) {
-        errorLog.style.borderColor = "#d32f2f"; errorLog.style.backgroundColor = "#ffebee";
-        htmlOutput += `<div style="color:#d32f2f; margin-bottom:10px;"><strong>❌ specification Mismatch:</strong><br>`;
-        globalOversizedItems.forEach(i => htmlOutput += `• Crate #${i.id} (${i.l}x${i.d}x${i.h}) moved to Side Area.<br>`);
-        htmlOutput += `</div>`;
+    const items = parseCSV(csvData);
+    if (items.length === 0) {
+      showError("No valid items found in file.");
+      return;
     }
-    errorLog.innerHTML = htmlOutput;
-
-    renderResults(rawItems.length);
+    
+    const baseULD = ULD_DEFINITIONS[document.getElementById("uldSelect").value];
+    
+    // Separate oversized items
+    const validItems = [];
+    state.globalOversizedItems = [];
+    
+    items.forEach(item => {
+      if (canItemFitInULD(item, baseULD)) {
+        // Set visual dimensions (width=min, height=max for top-down view)
+        // This is the "shorter side goes to width" logic - no rotation yet
+        item.visualW = Math.min(item.l, item.d);
+        item.visualH = Math.max(item.l, item.d);
+        item.rotationAngle = 0; // NEW: Track rotation state (0 or 90 degrees)
+        validItems.push(item);
+      } else {
+        // Try to find alternative ULD
+        const altULD = findBestULD(item);
+        if (altULD && altULD.name !== baseULD.name) {
+          item.visualW = Math.min(item.l, item.d);
+          item.visualH = Math.max(item.l, item.d);
+          item.rotationAngle = 0; // NEW: Track rotation state
+          validItems.push({ ...item, _altULD: altULD });
+        } else {
+          state.globalOversizedItems.push(item);
+        }
+      }
+    });
+    
+    // Sort by area (largest first) for better packing
+    validItems.sort((a, b) => {
+      const areaA = a.visualW * a.visualH;
+      const areaB = b.visualW * b.visualH;
+      return areaB - areaA;
+    });
+    
+    // Pack items
+    let allPallets = [];
+    
+    // Group items by ULD type
+    const itemsByULD = {};
+    validItems.forEach(item => {
+      const uldKey = item._altULD ? item._altULD.name : baseULD.name;
+      if (!itemsByULD[uldKey]) itemsByULD[uldKey] = [];
+      itemsByULD[uldKey].push(item);
+    });
+    
+    // Pack each group
+    Object.entries(itemsByULD).forEach(([uldKey, items]) => {
+      const uldData = ULD_DEFINITIONS[uldKey];
+      const packed = packItemsIntoPallets(items, uldData);
+      
+      packed.forEach(pallet => {
+        pallet.isSmartFit = (uldKey !== baseULD.name);
+        allPallets.push(pallet);
+      });
+    });
+    
+    state.allPalletLoads = allPallets;
+    
+    // Draw and update UI
     drawCanvas();
-    runOptimizationEngine(rawItems, allowStacking, selectedType);
-  }
-
-  function runOptimizationEngine(items, allowStacking, currentType) {
-    let stats = [];
-    for (const key in ulds) {
-       const uld = ulds[key];
-       const result = packItems(uld, items, allowStacking);
-       let totalFloorArea = 0; let usedFloorArea = 0;
-       result.loads.forEach(p => { totalFloorArea += (p.uldW * p.uldL); p.stacks.forEach(s => { usedFloorArea += (s.visualW * s.visualH); }); });
-       const floorEff = totalFloorArea > 0 ? (usedFloorArea / totalFloorArea) * 100 : 0;
-       stats.push({ type: key, count: result.loads.length, remaining: result.remaining.length, floorEff: floorEff, isCurrent: (key === currentType) });
-    }
-    stats.sort((a,b) => (a.remaining - b.remaining) || (a.count - b.count) || (b.floorEff - a.floorEff));
-    const best = stats[0];
-    const panel = document.getElementById("optimizationPanel");
-    panel.style.display = "block";
-    if (best.type === currentType) {
-        panel.className = "suggestion-box suggest-good";
-        panel.innerHTML = `<span class="suggestion-header">✅ Optimal Choice</span>Current selection is most efficient.`;
-    } else {
-        panel.className = "suggestion-box suggest-better";
-        panel.innerHTML = `<span class="suggestion-header">💡 Try <u>${best.type}</u></span>Reduced pallets or better fit.`;
+    updateManifest();
+    showSummary();
+    
+    if (state.globalOversizedItems.length > 0) {
+      showError(`${state.globalOversizedItems.length} item(s) could not fit in any ULD.`);
     }
   }
 
-  function renderResults(totalItems) {
+  // ========================================
+  // UI UPDATES - MANIFEST & SUMMARY
+  // ========================================
+  
+  function updateManifest() {
     const tbody = document.getElementById("resultTable").querySelector("tbody");
     tbody.innerHTML = "";
-    let totalCargoVol = 0; let totalUldVol = 0;
     
-    allPalletLoads.forEach((pallet, pIdx) => {
-      totalUldVol += (pallet.uldW * pallet.uldL * pallet.uldH);
+    let totalItems = 0;
+    
+    state.allPalletLoads.forEach((pallet, palletIndex) => {
       pallet.stacks.forEach(stack => {
-        stack.items.forEach((item, idx) => {
-           totalCargoVol += (item.l * item.d * item.h);
-           let tag = stack.items.length > 1 ? (idx === 0 ? "<strong>Bottom</strong>" : "<strong>Top</strong>") : "-";
-           tbody.innerHTML += `<tr><td>#${pIdx+1}</td><td>${pallet.uldName}</td><td>${item.id}</td><td>${item.visualW}x${item.visualH}x${item.h}</td><td>${tag}</td></tr>`;
+        stack.items.forEach(item => {
+          totalItems++;
+          const stackInfo = stack.items.length > 1 
+            ? `${stack.items.indexOf(item) + 1}/${stack.items.length}` 
+            : "1/1";
+          
+          tbody.innerHTML += `
+            <tr>
+              <td>${palletIndex + 1}</td>
+              <td>${pallet.uldName}</td>
+              <td>${item.id}</td>
+              <td>${item.l}x${item.d}x${item.h}</td>
+              <td>${stackInfo}</td>
+            </tr>
+          `;
         });
       });
     });
-
-    globalOversizedItems.forEach(item => {
-        tbody.innerHTML += `<tr style="background:#fff1f0"><td>Side</td><td>INVALID</td><td>${item.id}</td><td>${item.l}x${item.d}x${item.h}</td><td>-</td></tr>`;
+    
+    state.globalOversizedItems.forEach(item => {
+      tbody.innerHTML += `
+        <tr style="background:#fff1f0">
+          <td>Side</td>
+          <td>INVALID</td>
+          <td>${item.id}</td>
+          <td>${item.l}x${item.d}x${item.h}</td>
+          <td>-</td>
+        </tr>
+      `;
     });
 
-    if(totalItems) document.getElementById("statTotalItems").innerText = totalItems;
-    document.getElementById("statPalletCount").innerText = allPalletLoads.length;
-    const eff = totalUldVol > 0 ? (totalCargoVol / totalUldVol)*100 : 0;
-    document.getElementById("statEfficiency").innerText = eff.toFixed(1) + "%";
+    // Update statistics
+    if (totalItems) {
+      document.getElementById("statTotalItems").innerText = totalItems;
+    }
+    
+    document.getElementById("statPalletCount").innerText = state.allPalletLoads.length;
+    
+    // Calculate efficiency
+    let totalCargoVolume = 0;
+    let totalUldVolume = 0;
+    
+    state.allPalletLoads.forEach(pallet => {
+      totalUldVolume += pallet.uldW * pallet.uldL * pallet.uldH;
+      pallet.stacks.forEach(stack => {
+        stack.items.forEach(item => {
+          totalCargoVolume += item.l * item.d * item.h;
+        });
+      });
+    });
+    
+    const efficiency = totalUldVolume > 0 ? (totalCargoVolume / totalUldVolume) * 100 : 0;
+    document.getElementById("statEfficiency").innerText = efficiency.toFixed(1) + "%";
   }
 
+  function showSummary() {
+    const panel = document.getElementById("optimizationPanel");
+    const numPallets = state.allPalletLoads.length;
+    
+    if (numPallets <= 2) {
+      panel.className = "suggestion-box suggest-good";
+      panel.style.display = "block";
+      panel.innerHTML = `
+        <span class="suggestion-header">✓ Excellent Packing!</span>
+        Using only ${numPallets} pallet(s). This is optimal for your cargo.
+      `;
+    } else {
+      panel.className = "suggestion-box suggest-better";
+      panel.style.display = "block";
+      panel.innerHTML = `
+        <span class="suggestion-header">⚠ Consider Optimization</span>
+        Using ${numPallets} pallets. Try adjusting item dimensions or ULD type for better results.
+      `;
+    }
+  }
+
+  function showError(msg) {
+    const errorLog = document.getElementById("errorLog");
+    errorLog.innerText = msg;
+    errorLog.style.borderColor = "#d32f2f";
+    errorLog.style.backgroundColor = "#fff1f0";
+    errorLog.style.color = "#d32f2f";
+  }
+
+  // ========================================
+  // CANVAS DRAWING - MAIN
+  // ========================================
+  
   function drawCanvas() {
     const wrapper = document.getElementById("canvasWrapper");
     const canvas = document.getElementById("loadCanvas");
     const ctx = canvas.getContext("2d");
-    let maxULDL = 0; allPalletLoads.forEach(p => { if(p.uldL > maxULDL) maxULDL = p.uldL; });
-    globalScale = Math.min((wrapper.clientHeight - 80) / Math.max(maxULDL, 200), 1.2); 
-
-    let currentX = PADDING; 
-    allPalletLoads.forEach(p => { currentX += (p.uldW * globalScale) + GAP; });
     
-    // Add space for the Oversized Area on the right
-    const oversizedAreaWidth = globalOversizedItems.length > 0 ? 250 : 0;
-    canvas.width = currentX + oversizedAreaWidth; 
-    canvas.height = Math.max((maxULDL * globalScale) + PADDING + 60, 500); 
-
-    let offsetX = PADDING; 
-    
-    // Draw Pallets
-    allPalletLoads.forEach((pallet, idx) => {
-      const pDrawW = pallet.uldW * globalScale; const pDrawH = pallet.uldL * globalScale;
-      pallet._screenX = offsetX; pallet._screenW = pDrawW; pallet._screenH = pDrawH;
-      
-      ctx.fillStyle = "#0f4c81"; ctx.font = "bold 18px Arial"; ctx.fillText(`Pallet #${idx+1}`, offsetX, 25);
-      ctx.fillStyle = "#e3f2fd"; ctx.lineWidth = 3; ctx.strokeStyle = pallet.isSmartFit ? "#2e7d32" : "#0f4c81"; 
-      ctx.fillRect(offsetX, BOX_START_Y, pDrawW, pDrawH); ctx.strokeRect(offsetX, BOX_START_Y, pDrawW, pDrawH);
-      
-      pallet.stacks.forEach(stack => {
-        if (isDragging && draggedStack === stack) return;
-        if (isDragging && draggedItem && originalStack === stack) {
-          // Draw only the items that are NOT being dragged
-          drawStackExcludingItem(ctx, stack, offsetX + (stack.x * globalScale), BOX_START_Y + (stack.y * globalScale), draggedItem);
-        } else {
-          drawStack(ctx, stack, offsetX + (stack.x * globalScale), BOX_START_Y + (stack.y * globalScale));
-        }
-      });
-      offsetX += pDrawW + GAP;
+    // Calculate scale - INCREASED for larger visual display
+    let maxULDLength = 0;
+    state.allPalletLoads.forEach(pallet => { 
+      if (pallet.uldL > maxULDLength) maxULDLength = pallet.uldL;
     });
+    
+    // Increased scale factor from 1.2 to 2.0 for much larger pallets
+    state.globalScale = Math.min((wrapper.clientHeight - 80) / Math.max(maxULDLength, 200), 2.0);
 
-    // Draw Invalid Area on the right (without outer border)
-    if (globalOversizedItems.length > 0) {
-        const invalidStartX = offsetX;
-        invalidAreaBounds = {
-          x: invalidStartX,
-          y: BOX_START_Y,
-          w: 200,
-          h: canvas.height - 100
-        };
-        
-        ctx.fillStyle = "#d32f2f"; ctx.font = "bold 18px Arial"; ctx.fillText("Invalid Cargo Area", offsetX, 25);
-        ctx.fillStyle = "#fff1f0";
-        ctx.fillRect(offsetX, BOX_START_Y, 200, canvas.height - 100);
+    // Calculate canvas dimensions
+    const rows = Math.ceil(state.allPalletLoads.length / CANVAS_CONFIG.PALLETS_PER_ROW);
+    let maxRowWidth = 0;
+    let totalHeight = CANVAS_CONFIG.PADDING;
 
-        globalOversizedItems.forEach((item, idx) => {
-            if (isDraggingInvalid && draggedInvalidItem === item) return; // Skip dragged item
-            
-            if (!item._invalidX) item._invalidX = 10;
-            if (!item._invalidY) item._invalidY = 10 + (idx * 80);
-            
-            const w = Math.min(item.l, item.d) * (globalScale * 0.5); 
-            const h = Math.max(item.l, item.d) * (globalScale * 0.5);
-            
-            ctx.fillStyle = "white"; ctx.strokeStyle = "#d32f2f"; ctx.lineWidth = 2;
-            ctx.fillRect(offsetX + item._invalidX, BOX_START_Y + item._invalidY, w, h);
-            ctx.strokeRect(offsetX + item._invalidX, BOX_START_Y + item._invalidY, w, h);
-            ctx.fillStyle = "black"; ctx.font = "bold 10px Arial";
-            ctx.fillText(`#${item.id}`, offsetX + item._invalidX + 5, BOX_START_Y + item._invalidY + 15);
-            ctx.fillText(`${item.l}x${item.d}x${item.h}`, offsetX + item._invalidX + 5, BOX_START_Y + item._invalidY + 28);
-        });
+    for (let row = 0; row < rows; row++) {
+      let rowWidth = CANVAS_CONFIG.PADDING;
+      let rowMaxHeight = 0;
+
+      for (let col = 0; col < CANVAS_CONFIG.PALLETS_PER_ROW; col++) {
+        const idx = row * CANVAS_CONFIG.PALLETS_PER_ROW + col;
+        if (idx >= state.allPalletLoads.length) break;
+
+        const pallet = state.allPalletLoads[idx];
+        rowWidth += (pallet.uldW * state.globalScale) + CANVAS_CONFIG.GAP;
+        rowMaxHeight = Math.max(rowMaxHeight, pallet.uldL * state.globalScale);
+      }
+
+      maxRowWidth = Math.max(maxRowWidth, rowWidth);
+      totalHeight += rowMaxHeight + CANVAS_CONFIG.ROW_GAP;
     }
 
-    // Draw dragged item/stack
-    if (isDragging && draggedStack) {
-        drawStack(ctx, draggedStack, ghostGlobalPos.x, ghostGlobalPos.y, isCurrentPosInvalid);
-    } else if (isDragging && draggedItem) {
-        drawSingleItem(ctx, draggedItem, ghostGlobalPos.x, ghostGlobalPos.y, isCurrentPosInvalid);
-    } else if (isDraggingInvalid && draggedInvalidItem) {
-        const w = Math.min(draggedInvalidItem.l, draggedInvalidItem.d) * (globalScale * 0.5);
-        const h = Math.max(draggedInvalidItem.l, draggedInvalidItem.d) * (globalScale * 0.5);
-        ctx.fillStyle = "white"; ctx.strokeStyle = "#d32f2f"; ctx.lineWidth = 2;
-        ctx.shadowBlur = 10; ctx.shadowColor = "rgba(0,0,0,0.3)";
-        ctx.fillRect(ghostGlobalPos.x, ghostGlobalPos.y, w, h);
-        ctx.strokeRect(ghostGlobalPos.x, ghostGlobalPos.y, w, h);
-        ctx.shadowBlur = 0;
-        ctx.fillStyle = "black"; ctx.font = "bold 10px Arial";
-        ctx.fillText(`#${draggedInvalidItem.id}`, ghostGlobalPos.x + 5, ghostGlobalPos.y + 15);
-        ctx.fillText(`${draggedInvalidItem.l}x${draggedInvalidItem.d}x${draggedInvalidItem.h}`, ghostGlobalPos.x + 5, ghostGlobalPos.y + 28);
+    const oversizedAreaWidth = state.globalOversizedItems.length > 0 ? INVALID_AREA_CONFIG.WIDTH : 0;
+    canvas.width = maxRowWidth + oversizedAreaWidth;
+    canvas.height = Math.max(totalHeight + 60, 800); // Increased from 500 to 800
+
+    // Draw pallets
+    drawAllPallets(ctx, maxULDLength);
+    
+    // Draw invalid area
+    drawInvalidArea(ctx, oversizedAreaWidth);
+    
+    // Draw dragged items
+    drawDraggedItems(ctx);
+  }
+
+  function drawAllPallets(ctx, maxULDLength) {
+    state.allPalletLoads.forEach((pallet, idx) => {
+      const col = idx % CANVAS_CONFIG.PALLETS_PER_ROW;
+      const row = Math.floor(idx / CANVAS_CONFIG.PALLETS_PER_ROW);
+
+      const rowYOffset = CANVAS_CONFIG.BOX_START_Y + 
+                         row * (maxULDLength * state.globalScale + CANVAS_CONFIG.ROW_GAP);
+
+      let offsetX = CANVAS_CONFIG.PADDING;
+      for (let i = 0; i < col; i++) {
+        const prevPallet = state.allPalletLoads[row * CANVAS_CONFIG.PALLETS_PER_ROW + i];
+        offsetX += (prevPallet.uldW * state.globalScale) + CANVAS_CONFIG.GAP;
+      }
+
+      const palletDrawWidth = pallet.uldW * state.globalScale;
+      const palletDrawHeight = pallet.uldL * state.globalScale;
+
+      // Store screen coordinates
+      pallet._screenX = offsetX;
+      pallet._screenY = rowYOffset;
+      pallet._screenW = palletDrawWidth;
+      pallet._screenH = palletDrawHeight;
+
+      // Draw pallet label
+      ctx.fillStyle = "#0f4c81";
+      ctx.font = "bold 18px Arial";
+      ctx.fillText(`Pallet #${idx + 1}`, offsetX, rowYOffset - 20);
+
+      // Draw pallet background
+      ctx.fillStyle = "#0f4c81";
+      ctx.fillRect(offsetX, rowYOffset, palletDrawWidth, palletDrawHeight);
+
+      // Draw pallet border
+      ctx.strokeStyle = pallet._invalid ? "#d32f2f" : 
+                        pallet.isSmartFit ? "#2e7d32" : "#0f4c81";
+      ctx.strokeRect(offsetX, rowYOffset, palletDrawWidth, palletDrawHeight);
+
+      // Draw stacks
+      pallet.stacks.forEach(stack => {
+        drawStack(
+          ctx,
+          stack,
+          offsetX + (stack.x * state.globalScale),
+          rowYOffset + (stack.y * state.globalScale)
+        );
+      });
+    });
+  }
+
+  function drawInvalidArea(ctx, oversizedAreaWidth) {
+    if (state.globalOversizedItems.length === 0) return;
+
+    const canvas = document.getElementById("loadCanvas");
+    const invalidStartX = canvas.width - oversizedAreaWidth + 20;
+
+    state.invalidAreaBounds = {
+      x: invalidStartX,
+      y: CANVAS_CONFIG.BOX_START_Y,
+      w: oversizedAreaWidth - 40,
+      h: canvas.height - 100
+    };
+    
+    // Draw title
+    ctx.fillStyle = "#d32f2f";
+    ctx.font = "bold 18px Arial";
+    ctx.fillText("Invalid Cargo Area", invalidStartX, 25);
+
+    // Draw background
+    ctx.fillStyle = "#fff1f0";
+    ctx.fillRect(invalidStartX, CANVAS_CONFIG.BOX_START_Y, 200, canvas.height - 100);
+
+    // Draw items
+    state.globalOversizedItems.forEach((item, idx) => {
+      if (state.isDraggingInvalid && state.draggedInvalidItem === item) return;
+      
+      if (item._invalidX === undefined) item._invalidX = 10;
+      if (item._invalidY === undefined) item._invalidY = 10 + (idx * 80);
+      
+      const width = Math.min(item.l, item.d) * (state.globalScale * INVALID_AREA_CONFIG.SCALE_FACTOR);
+      const height = Math.max(item.l, item.d) * (state.globalScale * INVALID_AREA_CONFIG.SCALE_FACTOR);
+      
+      const drawX = state.invalidAreaBounds.x + item._invalidX;
+      const drawY = CANVAS_CONFIG.BOX_START_Y + item._invalidY;
+
+      // Draw box
+      ctx.fillStyle = "#ffffff";
+      ctx.strokeStyle = "#d32f2f";
+      ctx.lineWidth = 2;
+      ctx.fillRect(drawX, drawY, width, height);
+      ctx.strokeRect(drawX, drawY, width, height);
+
+      // Draw labels
+      ctx.fillStyle = "#000000";
+      ctx.font = "bold 11px Arial";
+      ctx.textBaseline = "top";
+      ctx.fillText(`#${item.id}`, drawX + 4, drawY + 2);
+      ctx.fillText(`${item.l}x${item.d}x${item.h}`, drawX + 4, drawY + 16);
+    });
+  }
+
+  function drawDraggedItems(ctx) {
+    if (state.isDragging && state.draggedStack) {
+      drawStack(ctx, state.draggedStack, state.ghostGlobalPos.x, state.ghostGlobalPos.y, state.isCurrentPosInvalid);
+    } else if (state.isDragging && state.draggedItem) {
+      drawSingleItem(ctx, state.draggedItem, state.ghostGlobalPos.x, state.ghostGlobalPos.y, state.isCurrentPosInvalid);
+    } else if (state.isDraggingInvalid && state.draggedInvalidItem) {
+      drawDraggedInvalidItem(ctx);
     }
+  }
+
+  function drawDraggedInvalidItem(ctx) {
+    const item = state.draggedInvalidItem;
+    const width = Math.min(item.l, item.d) * (state.globalScale * INVALID_AREA_CONFIG.SCALE_FACTOR);
+    const height = Math.max(item.l, item.d) * (state.globalScale * INVALID_AREA_CONFIG.SCALE_FACTOR);
+    
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "#d32f2f";
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = "rgba(0,0,0,0.3)";
+    ctx.fillRect(state.ghostGlobalPos.x, state.ghostGlobalPos.y, width, height);
+    ctx.strokeRect(state.ghostGlobalPos.x, state.ghostGlobalPos.y, width, height);
+    ctx.shadowBlur = 0;
+    
+    // Draw labels
+    ctx.fillStyle = "#000000";
+    ctx.font = "bold 11px Arial";
+    ctx.fillText(`#${item.id}`, state.ghostGlobalPos.x + 4, state.ghostGlobalPos.y + 2);
+    ctx.fillText(`${item.l}x${item.d}x${item.h}`, state.ghostGlobalPos.x + 4, state.ghostGlobalPos.y + 16);
   }
 
   function drawStack(ctx, stack, x, y, isInvalid = false) {
-     stack.items.forEach((item, itemIdx) => {
-        const w = item.visualW * globalScale; const h = item.visualH * globalScale;
-        ctx.fillStyle = isInvalid ? "#ffebee" : "white";
-        if (isInvalid) { ctx.shadowBlur = 10; ctx.shadowColor = "red"; }
-        ctx.fillRect(x, y, w, h);
-        ctx.shadowBlur = 0; 
-        ctx.strokeStyle = itemIdx === 0 ? "black" : "blue";
-        if (itemIdx > 0) ctx.setLineDash([5, 3]);
-        ctx.strokeRect(x, y, w, h);
-        ctx.setLineDash([]);
-    });
-    
-    let fs = stack.visualW * globalScale < 60 ? 9 : 11; ctx.font = `bold ${fs}px Arial`;
-    let ty = y + 2;
-    [...stack.items].reverse().forEach((item, i) => {
-        let labelSuffix = stack.items.length > 1 ? (i === 0 ? "(上)" : "(下)") : "";
-        ctx.fillStyle = stack.items.length > 1 ? (i===0 ? "red" : "blue") : "black";
-        let label = `${item.id}${labelSuffix}. ${item.l}x${item.d}x${item.h}`;
-        ctx.fillText(label, x+2, ty + fs);
-        ty += (fs * 2.8);
-    });
-  }
-
-  function drawStackExcludingItem(ctx, stack, x, y, excludeItem) {
-    const remainingItems = stack.items.filter(item => item !== excludeItem);
-    if (remainingItems.length === 0) return;
-    
-    remainingItems.forEach((item, itemIdx) => {
-        const w = item.visualW * globalScale; const h = item.visualH * globalScale;
-        ctx.fillStyle = "white";
-        ctx.fillRect(x, y, w, h);
-        ctx.strokeStyle = "black"; // Draw remaining items as regular (not stacked)
-        ctx.strokeRect(x, y, w, h);
-    });
-    
-    let fs = stack.visualW * globalScale < 60 ? 9 : 11; ctx.font = `bold ${fs}px Arial`;
-    let ty = y + 2;
-    [...remainingItems].reverse().forEach((item) => {
-        ctx.fillStyle = "black"; // Draw as regular item
-        let label = `${item.id}. ${item.l}x${item.d}x${item.h}`;
-        ctx.fillText(label, x+2, ty + fs);
-        ty += (fs * 2.8);
+    stack.items.forEach((item, idx) => {
+      const liftY = idx * CANVAS_CONFIG.VISUAL_LIFT;
+      const itemX = x + (item.stackOffsetX || 0) * state.globalScale;
+      const itemY = y + (item.stackOffsetY || 0) * state.globalScale - liftY;
+      
+      drawSingleItem(ctx, item, itemX, itemY, isInvalid);
     });
   }
 
   function drawSingleItem(ctx, item, x, y, isInvalid = false) {
-    const w = item.visualW * globalScale; const h = item.visualH * globalScale;
-    ctx.fillStyle = isInvalid ? "#ffebee" : "white";
-    if (isInvalid) { ctx.shadowBlur = 10; ctx.shadowColor = "red"; }
-    ctx.fillRect(x, y, w, h);
-    ctx.shadowBlur = 0; 
-    ctx.strokeStyle = "black"; // Draw as regular item (not stacked)
-    ctx.strokeRect(x, y, w, h);
+    const width = item.visualW * state.globalScale;
+    const height = item.visualH * state.globalScale;
     
-    let fs = w < 60 ? 9 : 11; ctx.font = `bold ${fs}px Arial`;
-    ctx.fillStyle = "black"; // Draw as regular item
+    // Draw box
+    ctx.fillStyle = isInvalid ? "#ffebee" : "white";
+    if (isInvalid) { 
+      ctx.shadowBlur = 10; 
+      ctx.shadowColor = "red"; 
+    }
+    ctx.fillRect(x, y, width, height);
+    ctx.shadowBlur = 0;
+    
+    // Draw border based on isOnFloor property
+    ctx.strokeStyle = item.isOnFloor === false ? "blue" : "black";
+    ctx.setLineDash(item.isOnFloor === false ? [5, 3] : []);
+    ctx.strokeRect(x, y, width, height);
+    ctx.setLineDash([]);
+    
+    // Draw label with larger font size
+    let fontSize = width < 60 ? 13 : 16;
+    ctx.font = `bold ${fontSize}px Arial`;
+    
+    // Text color based on isOnFloor property
+    ctx.fillStyle = item.isOnFloor === true ? "black" : "red";
     let label = `${item.id}. ${item.l}x${item.d}x${item.h}`;
-    ctx.fillText(label, x+2, y + fs + 2);
+    ctx.fillText(label, x + 2, y + fontSize + 2);
   }
 
+  // ========================================
+  // INTERACTION HANDLING - INITIALIZATION
+  // ========================================
+  
   function initInteractions() {
     const canvas = document.getElementById("loadCanvas");
     canvas.addEventListener("mousedown", handleMouseDown);
+    canvas.addEventListener("contextmenu", handleRightClick);
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
   }
@@ -765,259 +1151,957 @@
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }
 
-  function handleMouseDown(e) {
+  // ========================================
+  // INTERACTION HANDLING - RIGHT CLICK
+  // ========================================
+  
+  function handleRightClick(e) {
+    e.preventDefault();
     const pos = getMousePos(e);
     
-    // Check invalid cargo area first
-    if (invalidAreaBounds && globalOversizedItems.length > 0) {
-      globalOversizedItems.forEach(item => {
-        if (!item._invalidX) item._invalidX = 10;
-        if (!item._invalidY) item._invalidY = 10;
+    // Reset context menu state
+    state.rightClickedPallet = null;
+    state.rightClickedCrate = null;
+    state.rightClickedStack = null;
+
+    // First, check if we clicked on a crate (highest priority)
+    let crateFound = false;
+    
+    for (let pallet of state.allPalletLoads) {
+      for (let stack of pallet.stacks) {
+        const stackX = pallet._screenX + (stack.x * state.globalScale);
+        const stackY = pallet._screenY + (stack.y * state.globalScale);
+        const stackWidth = stack.visualW * state.globalScale;
+        const stackHeight = stack.visualH * state.globalScale;
         
-        const w = Math.min(item.l, item.d) * (globalScale * 0.5);
-        const h = Math.max(item.l, item.d) * (globalScale * 0.5);
-        const ix = invalidAreaBounds.x + item._invalidX;
-        const iy = BOX_START_Y + item._invalidY;
-        
-        if (pos.x >= ix && pos.x <= ix + w && pos.y >= iy && pos.y <= iy + h) {
-          isDraggingInvalid = true;
-          draggedInvalidItem = item;
-          dragOffset.x = pos.x - ix;
-          dragOffset.y = pos.y - iy;
-          document.getElementById("loadCanvas").style.cursor = "grabbing";
+        if (pos.x >= stackX && pos.x <= stackX + stackWidth && 
+            pos.y >= stackY && pos.y <= stackY + stackHeight) {
+          // Found a crate - show crate menu
+          state.rightClickedCrate = stack.items[0]; // Get the base item for rotation
+          state.rightClickedStack = stack;
+          state.rightClickedPallet = pallet;
+          crateFound = true;
+          showCrateContextMenu(e.clientX, e.clientY);
           return;
         }
-      });
+      }
     }
+
+    // If no crate found, check if we clicked on a pallet (for pallet resizing)
+    if (!crateFound) {
+      state.allPalletLoads.forEach(pallet => {
+        if (pos.x >= pallet._screenX &&
+            pos.x <= pallet._screenX + pallet._screenW &&
+            pos.y >= pallet._screenY &&
+            pos.y <= pallet._screenY + pallet._screenH) {
+          state.rightClickedPallet = pallet;
+        }
+      });
+
+      if (state.rightClickedPallet) {
+        showPalletContextMenu(e.clientX, e.clientY);
+      }
+    }
+  }
+
+  // NEW: Show crate context menu with rotation option
+  function showCrateContextMenu(x, y) {
+    removeContextMenu();
+
+    const menu = document.createElement("div");
+    menu.id = "crateContextMenu";
+    menu.style.position = "fixed";
+    menu.style.top = y + "px";
+    menu.style.left = x + "px";
+    menu.style.background = "white";
+    menu.style.border = "1px solid #999";
+    menu.style.borderRadius = "4px";
+    menu.style.boxShadow = "0 2px 10px rgba(0,0,0,0.2)";
+    menu.style.zIndex = 9999;
+    menu.style.minWidth = "150px";
+
+    // Add "Rotate 90°" option
+    const rotateItem = document.createElement("div");
+    rotateItem.innerHTML = "🔄 Rotate 90° CW";
+    rotateItem.style.padding = "8px 12px";
+    rotateItem.style.cursor = "pointer";
+    rotateItem.style.fontWeight = "bold";
+    rotateItem.style.borderBottom = "1px solid #eee";
+
+    rotateItem.onclick = () => {
+      rotateCrate(state.rightClickedCrate, state.rightClickedStack, state.rightClickedPallet);
+      removeContextMenu();
+    };
+
+    rotateItem.onmouseenter = () => rotateItem.style.background = "#e3f2fd";
+    rotateItem.onmouseleave = () => rotateItem.style.background = "white";
+
+    menu.appendChild(rotateItem);
+
+    // Add pallet change options
+    const palletHeader = document.createElement("div");
+    palletHeader.innerText = "Move to Pallet:";
+    palletHeader.style.padding = "8px 12px";
+    palletHeader.style.fontSize = "0.85rem";
+    palletHeader.style.color = "#666";
+    palletHeader.style.fontWeight = "bold";
+    menu.appendChild(palletHeader);
+
+    Object.values(ULD_DEFINITIONS).forEach(uld => {
+      const item = document.createElement("div");
+      item.innerText = `${uld.name} (${uld.l}×${uld.w})`;
+      item.style.padding = "8px 12px";
+      item.style.cursor = "pointer";
+
+      item.onclick = () => {
+        changePalletSize(state.rightClickedPallet, uld);
+        removeContextMenu();
+      };
+
+      item.onmouseenter = () => item.style.background = "#e3f2fd";
+      item.onmouseleave = () => item.style.background = "white";
+
+      menu.appendChild(item);
+    });
+
+    document.body.appendChild(menu);
+    document.addEventListener("click", removeContextMenu, { once: true });
+  }
+
+  function showPalletContextMenu(x, y) {
+    removeContextMenu();
+
+    const menu = document.createElement("div");
+    menu.id = "palletContextMenu";
+    menu.style.position = "fixed";
+    menu.style.top = y + "px";
+    menu.style.left = x + "px";
+    menu.style.background = "white";
+    menu.style.border = "1px solid #999";
+    menu.style.borderRadius = "4px";
+    menu.style.boxShadow = "0 2px 10px rgba(0,0,0,0.2)";
+    menu.style.zIndex = 9999;
+
+    Object.values(ULD_DEFINITIONS).forEach(uld => {
+      const item = document.createElement("div");
+      item.innerText = `${uld.name} (${uld.l}×${uld.w})`;
+      item.style.padding = "8px 12px";
+      item.style.cursor = "pointer";
+
+      item.onclick = () => {
+        changePalletSize(state.rightClickedPallet, uld);
+        removeContextMenu();
+      };
+
+      item.onmouseenter = () => item.style.background = "#e3f2fd";
+      item.onmouseleave = () => item.style.background = "white";
+
+      menu.appendChild(item);
+    });
+
+    document.body.appendChild(menu);
+    document.addEventListener("click", removeContextMenu, { once: true });
+  }
+
+  function removeContextMenu() {
+    const crateMenu = document.getElementById("crateContextMenu");
+    const palletMenu = document.getElementById("palletContextMenu");
+    if (crateMenu) crateMenu.remove();
+    if (palletMenu) palletMenu.remove();
+  }
+
+  // ========================================
+  // NEW: CRATE ROTATION FUNCTIONALITY
+  // ========================================
+  
+  function rotateCrate(item, stack, pallet) {
+    // Swap visualW and visualH to rotate 90 degrees clockwise
+    const temp = item.visualW;
+    item.visualW = item.visualH;
+    item.visualH = temp;
+    
+    // Update rotation angle tracking
+    item.rotationAngle = (item.rotationAngle + 90) % 360;
+    
+    // Update the stack's dimensions
+    stack.visualW = item.visualW;
+    stack.visualH = item.visualH;
+    
+    // Check if the rotated crate still fits within the pallet
+    const fitsInPallet = (
+      stack.x >= 0 && 
+      stack.y >= 0 &&
+      (stack.x + stack.visualW) <= pallet.uldW &&
+      (stack.y + stack.visualH) <= pallet.uldL
+    );
+    
+    // Check if rotation causes collision with other stacks
+    let hasCollision = false;
+    for (let otherStack of pallet.stacks) {
+      if (otherStack === stack) continue;
+      
+      if (stack.x < otherStack.x + otherStack.visualW && 
+          stack.x + stack.visualW > otherStack.x && 
+          stack.y < otherStack.y + otherStack.visualH && 
+          stack.y + stack.visualH > otherStack.y) {
+        hasCollision = true;
+        break;
+      }
+    }
+    
+    // If doesn't fit or has collision, revert the rotation
+    if (!fitsInPallet || hasCollision) {
+      // Revert the swap
+      const revertTemp = item.visualW;
+      item.visualW = item.visualH;
+      item.visualH = revertTemp;
+      item.rotationAngle = (item.rotationAngle - 90 + 360) % 360;
+      stack.visualW = item.visualW;
+      stack.visualH = item.visualH;
+      
+      alert("Cannot rotate: Crate would exceed pallet boundaries or collide with other crates.");
+      return;
+    }
+    
+    // If there are stacked items, check if they still fit
+    if (stack.items.length > 1) {
+      for (let i = 1; i < stack.items.length; i++) {
+        const stackedItem = stack.items[i];
+        
+        // Check if stacked item still fits on the rotated base
+        if (stackedItem.visualW > item.visualW || stackedItem.visualH > item.visualH) {
+          // Revert the rotation
+          const revertTemp = item.visualW;
+          item.visualW = item.visualH;
+          item.visualH = revertTemp;
+          item.rotationAngle = (item.rotationAngle - 90 + 360) % 360;
+          stack.visualW = item.visualW;
+          stack.visualH = item.visualH;
+          
+          alert("Cannot rotate: Stacked items would not fit on the rotated base.");
+          return;
+        }
+        
+        // Recalculate centered offset for stacked items
+        stackedItem.stackOffsetX = (item.visualW - stackedItem.visualW) / 2;
+        stackedItem.stackOffsetY = (item.visualH - stackedItem.visualH) / 2;
+      }
+    }
+    
+    // Rotation successful - redraw canvas
+    drawCanvas();
+    updateManifest();
+  }
+
+  function changePalletSize(pallet, newULD) {
+    pallet.uldName = newULD.name;
+    pallet.uldW = newULD.w;
+    pallet.uldL = newULD.l;
+    pallet.uldH = newULD.h;
+
+    // Validate stacks against new size
+    pallet._invalid = false;
+
+    pallet.stacks.forEach(stack => {
+      if (stack.x < 0 || stack.y < 0 ||
+          (stack.x + stack.visualW) > pallet.uldW ||
+          (stack.y + stack.visualH) > pallet.uldL) {
+        pallet._invalid = true;
+      }
+    });
+
+    drawCanvas();
+  }
+
+  // ========================================
+  // INTERACTION HANDLING - MOUSE DOWN
+  // ========================================
+  
+  function handleMouseDown(e) {
+    const pos = getMousePos(e);
+    const canvas = document.getElementById("loadCanvas");
+    
+    // Check invalid cargo area first
+    if (handleInvalidAreaMouseDown(pos, canvas)) return;
     
     // Check pallets
-    allPalletLoads.forEach(pallet => {
-      pallet.stacks.forEach((stack) => {
-        const sx = pallet._screenX + (stack.x * globalScale);
-        const sy = BOX_START_Y + (stack.y * globalScale);
-        const sw = stack.visualW * globalScale;
-        const sh = stack.visualH * globalScale;
+    handlePalletMouseDown(pos, canvas);
+  }
+
+  function handleInvalidAreaMouseDown(pos, canvas) {
+    if (!state.invalidAreaBounds || state.globalOversizedItems.length === 0) return false;
+
+    for (let item of state.globalOversizedItems) {
+      if (!item._invalidX) item._invalidX = 10;
+      if (!item._invalidY) item._invalidY = 10;
+      
+      const width = Math.min(item.l, item.d) * (state.globalScale * INVALID_AREA_CONFIG.SCALE_FACTOR);
+      const height = Math.max(item.l, item.d) * (state.globalScale * INVALID_AREA_CONFIG.SCALE_FACTOR);
+      const itemX = state.invalidAreaBounds.x + item._invalidX;
+      const itemY = CANVAS_CONFIG.BOX_START_Y + item._invalidY;
+      
+      if (pos.x >= itemX && pos.x <= itemX + width && 
+          pos.y >= itemY && pos.y <= itemY + height) {
+        state.isDraggingInvalid = true;
+        state.draggedInvalidItem = item;
+        state.dragOffset.x = pos.x - itemX;
+        state.dragOffset.y = pos.y - itemY;
+        canvas.style.cursor = "grabbing";
+        return true;
+      }
+    }
+    
+    return false;
+  }
+
+  function handlePalletMouseDown(pos, canvas) {
+    state.allPalletLoads.forEach(pallet => {
+      pallet.stacks.forEach(stack => {
+        const stackX = pallet._screenX + (stack.x * state.globalScale);
+        const stackY = pallet._screenY + (stack.y * state.globalScale);
+        const stackWidth = stack.visualW * state.globalScale;
+        const stackHeight = stack.visualH * state.globalScale;
         
-        if (pos.x >= sx && pos.x <= sx + sw && pos.y >= sy && pos.y <= sy + sh) {
-          // Check if clicking on top item of a stack
+        if (pos.x >= stackX && pos.x <= stackX + stackWidth && 
+            pos.y >= stackY && pos.y <= stackY + stackHeight) {
+          
+          // Handle multi-item stack - drag top item
           if (stack.items.length > 1) {
-            const topItem = stack.items[stack.items.length - 1];
-            // Allow dragging the top item individually
-            isDragging = true;
-            draggedItem = topItem;
-            originalStack = stack;
-            draggedPallet = pallet;
-            originalPallet = pallet;
-            originalPos = { x: stack.x, y: stack.y };
-            dragOffset.x = (pos.x - sx);
-            dragOffset.y = (pos.y - sy);
-            document.getElementById("loadCanvas").style.cursor = "grabbing";
-          } else {
-            // Single item stack - drag the whole stack
-            isDragging = true;
-            draggedStack = stack;
-            draggedPallet = pallet;
-            originalPallet = pallet;
-            originalPos = { x: stack.x, y: stack.y };
-            dragOffset.x = (pos.x - sx);
-            dragOffset.y = (pos.y - sy);
-            document.getElementById("loadCanvas").style.cursor = "grabbing";
+            handleTopItemDrag(stack, pallet, stackX, stackY, pos, canvas);
+          }
+          // Handle single-item stack
+          else if (stack.items.length === 1) {
+            handleSingleItemDrag(stack, pallet, stackX, stackY, pos, canvas);
           }
         }
       });
     });
   }
 
+  function handleTopItemDrag(stack, pallet, stackX, stackY, pos, canvas) {
+    const topItem = stack.items[stack.items.length - 1];
+    
+    state.isDragging = true;
+    state.draggedItem = topItem;
+    state.draggedPallet = pallet;
+    state.originalStack = stack;
+    state.originalPos = { 
+      x: stackX + (topItem.stackOffsetX || 0) * state.globalScale,
+      y: stackY + (topItem.stackOffsetY || 0) * state.globalScale
+    };
+    
+    state.dragOffset.x = pos.x - state.originalPos.x;
+    state.dragOffset.y = pos.y - state.originalPos.y;
+    
+    state.ghostGlobalPos = { ...state.originalPos };
+    canvas.style.cursor = "grabbing";
+  }
+
+  function handleSingleItemDrag(stack, pallet, stackX, stackY, pos, canvas) {
+    state.isDragging = true;
+    state.draggedStack = stack;
+    state.draggedPallet = pallet;
+    state.originalPallet = pallet;
+    state.originalPos = { x: stackX, y: stackY };
+    state.dragOffset.x = pos.x - stackX;
+    state.dragOffset.y = pos.y - stackY;
+    state.ghostGlobalPos = { x: stackX, y: stackY };
+    canvas.style.cursor = "grabbing";
+  }
+
+  // ========================================
+  // INTERACTION HANDLING - MOUSE MOVE
+  // ========================================
+  
   function handleMouseMove(e) {
-    if (isDraggingInvalid && draggedInvalidItem) {
-      const pos = getMousePos(e);
-      ghostGlobalPos.x = pos.x - dragOffset.x;
-      ghostGlobalPos.y = pos.y - dragOffset.y;
-      drawCanvas();
-      return;
+    if (state.isDraggingInvalid) {
+      handleInvalidAreaMouseMove(e);
+    } else if (state.isDragging) {
+      handlePalletMouseMove(e);
     }
-    
-    if (!isDragging || (!draggedStack && !draggedItem)) return;
-    
+  }
+
+  function handleInvalidAreaMouseMove(e) {
     const pos = getMousePos(e);
-    ghostGlobalPos.x = pos.x - dragOffset.x;
-    ghostGlobalPos.y = pos.y - dragOffset.y;
+    state.ghostGlobalPos = {
+      x: pos.x - state.dragOffset.x,
+      y: pos.y - state.dragOffset.y
+    };
+    drawCanvas();
+  }
+
+  function handlePalletMouseMove(e) {
+    const pos = getMousePos(e);
+    state.ghostGlobalPos = {
+      x: pos.x - state.dragOffset.x,
+      y: pos.y - state.dragOffset.y
+    };
     
-    let targetPallet = null;
-    allPalletLoads.forEach(p => { 
-      if (pos.x >= p._screenX && pos.x <= p._screenX + p._screenW) targetPallet = p; 
+    // Check validity
+    state.isCurrentPosInvalid = true;
+    
+    state.allPalletLoads.forEach(pallet => {
+      if (state.ghostGlobalPos.x >= pallet._screenX &&
+          state.ghostGlobalPos.y >= pallet._screenY &&
+          state.ghostGlobalPos.x < pallet._screenX + pallet._screenW &&
+          state.ghostGlobalPos.y < pallet._screenY + pallet._screenH) {
+        state.isCurrentPosInvalid = false;
+      }
     });
     
-    if (targetPallet) {
-      draggedPallet = targetPallet;
-      if (draggedStack) {
-        draggedStack.x = (ghostGlobalPos.x - targetPallet._screenX) / globalScale;
-        draggedStack.y = (ghostGlobalPos.y - BOX_START_Y) / globalScale;
-      } else if (draggedItem) {
-        draggedItem.x = (ghostGlobalPos.x - targetPallet._screenX) / globalScale;
-        draggedItem.y = (ghostGlobalPos.y - BOX_START_Y) / globalScale;
-      }
-    }
-    
-    checkValidity();
     drawCanvas();
   }
 
-  function checkValidity() {
-    isCurrentPosInvalid = false;
-    const p = draggedPallet;
+  // ========================================
+  // INTERACTION HANDLING - MOUSE UP
+  // ========================================
+  
+  function handleMouseUp(e) {
+    const canvas = document.getElementById("loadCanvas");
+    canvas.style.cursor = "default";
     
-    if (draggedStack) {
-      const s = draggedStack;
-      if (s.x < 0 || s.y < 0 || (s.x + s.visualW) > p.uldW || (s.y + s.visualH) > p.uldL) {
-        isCurrentPosInvalid = true;
-      }
-      if (!isCurrentPosInvalid) {
-        for (let other of p.stacks) {
-          if (other === s) continue;
-          if (s.x < other.x + other.visualW && s.x + s.visualW > other.x && 
-              s.y < other.y + other.visualH && s.y + s.visualH > other.y) {
-            isCurrentPosInvalid = true;
-            break;
-          }
-        }
-      }
-    } else if (draggedItem) {
-      const item = draggedItem;
-      if (item.x < 0 || item.y < 0 || (item.x + item.visualW) > p.uldW || (item.y + item.visualH) > p.uldL) {
-        isCurrentPosInvalid = true;
-      }
-      if (!isCurrentPosInvalid) {
-        for (let stack of p.stacks) {
-          if (stack === originalStack) continue; // Don't check against original position
-          if (item.x < stack.x + stack.visualW && item.x + item.visualW > stack.x && 
-              item.y < stack.y + stack.visualH && item.y + item.visualH > stack.y) {
-            isCurrentPosInvalid = true;
-            break;
-          }
-        }
-      }
+    if (state.isDraggingInvalid) {
+      handleInvalidAreaMouseUp();
+    } else if (state.isDragging) {
+      handlePalletMouseUp(e);
     }
   }
 
-  function handleMouseUp() {
-    if (isDraggingInvalid && draggedInvalidItem) {
-      // Update position within invalid area
-      if (invalidAreaBounds) {
-        const relX = ghostGlobalPos.x - invalidAreaBounds.x;
-        const relY = ghostGlobalPos.y - BOX_START_Y;
-        
-        // Keep within bounds
-        const w = Math.min(draggedInvalidItem.l, draggedInvalidItem.d) * (globalScale * 0.5);
-        const h = Math.max(draggedInvalidItem.l, draggedInvalidItem.d) * (globalScale * 0.5);
-        
-        if (relX >= 0 && relX + w <= invalidAreaBounds.w && relY >= 0 && relY + h <= invalidAreaBounds.h) {
-          draggedInvalidItem._invalidX = relX;
-          draggedInvalidItem._invalidY = relY;
-        }
-      }
+  function handleInvalidAreaMouseUp() {
+    const item = state.draggedInvalidItem;
+    const bounds = state.invalidAreaBounds;
+    
+    if (bounds) {
+      item._invalidX = Math.max(0, Math.min(
+        state.ghostGlobalPos.x - bounds.x,
+        bounds.w - (Math.min(item.l, item.d) * state.globalScale * INVALID_AREA_CONFIG.SCALE_FACTOR)
+      ));
       
-      isDraggingInvalid = false;
-      draggedInvalidItem = null;
-      document.getElementById("loadCanvas").style.cursor = "default";
-      drawCanvas();
-      return;
+      item._invalidY = Math.max(0, Math.min(
+        state.ghostGlobalPos.y - CANVAS_CONFIG.BOX_START_Y,
+        bounds.h - (Math.max(item.l, item.d) * state.globalScale * INVALID_AREA_CONFIG.SCALE_FACTOR)
+      ));
     }
     
-    if (!isDragging || (!draggedStack && !draggedItem)) return;
-    
-    checkValidity();
-    
-    if (draggedItem) {
-      // Handle individual item drop
-      if (isCurrentPosInvalid) {
-        // Return to original position
-        draggedItem.x = originalPos.x;
-        draggedItem.y = originalPos.y;
-        draggedPallet = originalPallet;
-      } else {
-        // Remove from original stack
-        originalStack.items = originalStack.items.filter(item => item !== draggedItem);
-        
-        // If original stack is now empty, remove it
-        if (originalStack.items.length === 0) {
-          originalPallet.stacks = originalPallet.stacks.filter(s => s !== originalStack);
-        } else {
-          // Update original stack height
-          originalStack.currentH = originalStack.items.reduce((sum, item) => sum + item.h, 0);
-        }
-        
-        // Create new stack for dropped item on target pallet
-        if (draggedPallet !== originalPallet) {
-          draggedPallet.stacks.push({
-            x: draggedItem.x,
-            y: draggedItem.y,
-            visualW: draggedItem.visualW,
-            visualH: draggedItem.visualH,
-            currentH: draggedItem.h,
-            items: [draggedItem]
-          });
-        } else {
-          // Same pallet, create new stack
-          draggedPallet.stacks.push({
-            x: draggedItem.x,
-            y: draggedItem.y,
-            visualW: draggedItem.visualW,
-            visualH: draggedItem.visualH,
-            currentH: draggedItem.h,
-            items: [draggedItem]
-          });
-        }
-        
-        draggedItem.z = 0; // Reset z position (floor level)
-      }
-      
-      draggedItem = null;
-      originalStack = null;
-    } else if (draggedStack) {
-      // Handle whole stack drop
-      if (isCurrentPosInvalid) {
-        draggedStack.x = originalPos.x;
-        draggedStack.y = originalPos.y;
-        draggedPallet = originalPallet;
-      } else if (draggedPallet !== originalPallet) {
-        originalPallet.stacks = originalPallet.stacks.filter(item => item !== draggedStack);
-        draggedPallet.stacks.push(draggedStack);
-      }
-      
-      draggedStack = null;
-    }
-    
-    isDragging = false;
-    draggedPallet = null;
-    originalPallet = null;
-    document.getElementById("loadCanvas").style.cursor = "default";
-    renderResults();
+    state.isDraggingInvalid = false;
+    state.draggedInvalidItem = null;
     drawCanvas();
   }
 
-  async function downloadPDF() {
-    const { jsPDF } = window.jspdf;
-    const btn = document.getElementById('btnDownloadPDF');
-    btn.innerText = "Processing..."; btn.disabled = true;
+  function handlePalletMouseUp(e) {
+    if (!state.isDragging) return;
+    
+    const pos = getMousePos(e);
+    let targetPallet = null;
+    
+    // Find target pallet
+    state.allPalletLoads.forEach(pallet => {
+      if (pos.x >= pallet._screenX && pos.x <= pallet._screenX + pallet._screenW &&
+          pos.y >= pallet._screenY && pos.y <= pallet._screenY + pallet._screenH) {
+        targetPallet = pallet;
+      }
+    });
+    
+    if (targetPallet && !state.isCurrentPosInvalid) {
+      if (state.draggedStack) {
+        moveStack(targetPallet);
+      } else if (state.draggedItem) {
+        moveTopItem(targetPallet);
+      }
+    }
+    
+    // Reset state
+    state.isDragging = false;
+    state.draggedStack = null;
+    state.draggedItem = null;
+    state.draggedPallet = null;
+    state.originalPallet = null;
+    state.originalStack = null;
+    
+    drawCanvas();
+  }
+
+  function moveStack(targetPallet) {
+    const stack = state.draggedStack;
+    const sourcePallet = state.originalPallet;
+    
+    // Remove from source
+    const stackIndex = sourcePallet.stacks.indexOf(stack);
+    if (stackIndex > -1) {
+      sourcePallet.stacks.splice(stackIndex, 1);
+    }
+    
+    // Calculate new position relative to target pallet
+    const relX = (state.ghostGlobalPos.x - targetPallet._screenX) / state.globalScale;
+    const relY = (state.ghostGlobalPos.y - targetPallet._screenY) / state.globalScale;
+    
+    stack.x = Math.max(0, Math.min(relX, targetPallet.uldW - stack.visualW));
+    stack.y = Math.max(0, Math.min(relY, targetPallet.uldL - stack.visualH));
+    
+    targetPallet.stacks.push(stack);
+    
+    // Remove source pallet if empty
+    if (sourcePallet.stacks.length === 0 && sourcePallet !== targetPallet) {
+      const palletIndex = state.allPalletLoads.indexOf(sourcePallet);
+      if (palletIndex > -1) {
+        state.allPalletLoads.splice(palletIndex, 1);
+      }
+    }
+    
+    updateManifest();
+  }
+
+  function moveTopItem(targetPallet) {
+    const item = state.draggedItem;
+    const sourceStack = state.originalStack;
+    
+    // Remove item from source stack
+    const itemIndex = sourceStack.items.indexOf(item);
+    if (itemIndex > -1) {
+      sourceStack.items.splice(itemIndex, 1);
+    }
+    
+    // Remove stack if empty
+    if (sourceStack.items.length === 0) {
+      const stackIndex = state.draggedPallet.stacks.indexOf(sourceStack);
+      if (stackIndex > -1) {
+        state.draggedPallet.stacks.splice(stackIndex, 1);
+      }
+    }
+    
+    // Calculate new position
+    const relX = (state.ghostGlobalPos.x - targetPallet._screenX) / state.globalScale;
+    const relY = (state.ghostGlobalPos.y - targetPallet._screenY) / state.globalScale;
+    
+    // Reset item to floor item
+    item.isOnFloor = true;
+    item.stackOffsetX = 0;
+    item.stackOffsetY = 0;
+    
+    targetPallet.stacks.push({
+      x: Math.max(0, Math.min(relX, targetPallet.uldW - item.visualW)),
+      y: Math.max(0, Math.min(relY, targetPallet.uldL - item.visualH)),
+      visualW: item.visualW,
+      visualH: item.visualH,
+      items: [item]
+    });
+    
+    // Remove source pallet if empty
+    if (state.draggedPallet.stacks.length === 0 && state.draggedPallet !== targetPallet) {
+      const palletIndex = state.allPalletLoads.indexOf(state.draggedPallet);
+      if (palletIndex > -1) {
+        state.allPalletLoads.splice(palletIndex, 1);
+      }
+    }
+    
+    updateManifest();
+  }
+
+  // ========================================
+  // PDF GENERATION - PALLET SIMULATION
+  // ========================================
+  
+  async function downloadSimulationPDF() {
+    const btn = document.getElementById("btnDownloadSimulation");
+    btn.innerText = "Generating PDF...";
+    btn.disabled = true;
+    
     try {
-        const visualCanvas = await html2canvas(document.getElementById('export-visual'), { scale: 2 });
-        const manifestTable = await html2canvas(document.getElementById('resultTable'), { scale: 2 });
-        const pdf = new jsPDF('l', 'mm', 'a4');
-        const pWidth = pdf.internal.pageSize.getWidth();
-        const pHeight = pdf.internal.pageSize.getHeight();
-        const availableWidth = pWidth - 20;
-        pdf.setFontSize(16); pdf.setTextColor(15, 76, 129); pdf.text("Pallet Load Plan Report", 10, 12);
-        const vRatio = availableWidth / visualCanvas.width;
-        const vHeight = visualCanvas.height * vRatio;
-        pdf.addImage(visualCanvas.toDataURL('image/png'), 'PNG', 10, 22, availableWidth, vHeight);
-        pdf.addPage('l', 'mm', 'a4'); pdf.text("Manifest Details", 10, 12);
-        const mRatio = availableWidth / manifestTable.width;
-        const mHeight = manifestTable.height * mRatio;
-        pdf.addImage(manifestTable.toDataURL('image/png'), 'PNG', 10, 20, availableWidth, mHeight);
-        pdf.save(`Pallet_Report_${Date.now()}.pdf`);
-    } catch (e) { alert("PDF Error"); }
-    finally { btn.innerText = "Download Visual & Manifest PDF"; btn.disabled = false; }
+      const { jsPDF } = window.jspdf;
+      
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const year = now.getFullYear();
+      const dateStr = `${day}.${month}.${year}`;
+      
+      const pdf = new jsPDF('l', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      
+      const numPallets = state.allPalletLoads.length;
+      const palletsPerPage = 3;
+      const totalPages = Math.ceil(numPallets / palletsPerPage);
+      
+      for (let pageNum = 0; pageNum < totalPages; pageNum++) {
+        if (pageNum > 0) {
+          pdf.addPage('l', 'mm', 'a4');
+        }
+        
+        // Add title
+        pdf.setFontSize(16);
+        pdf.setTextColor(15, 76, 129);
+        pdf.text(`Pallet Report - ${dateStr}`, 10, 12);
+        pdf.setFontSize(10);
+        pdf.text(`Page ${pageNum + 1} of ${totalPages}`, pageWidth - 30, 12);
+        
+        // Get pallets for this page
+        const startIdx = pageNum * palletsPerPage;
+        const endIdx = Math.min(startIdx + palletsPerPage, numPallets);
+        const pagePallets = state.allPalletLoads.slice(startIdx, endIdx);
+        
+        // Create canvas for this page
+        const pageCanvas = await createSimulationPageCanvas(pagePallets, startIdx);
+        
+        // Calculate dimensions to fit page
+        const margin = 20;
+        const maxWidth = pageWidth - (margin * 2);
+        const maxHeight = pageHeight - 30;
+        
+        const ratio = Math.min(maxWidth / pageCanvas.width, maxHeight / pageCanvas.height);
+        const canvasWidth = pageCanvas.width * ratio;
+        const canvasHeight = pageCanvas.height * ratio;
+        
+        // Center on page
+        const x = (pageWidth - canvasWidth) / 2;
+        const y = 20;
+        
+        pdf.addImage(pageCanvas.toDataURL('image/png'), 'PNG', x, y, canvasWidth, canvasHeight);
+      }
+      
+      pdf.save(`Pallet_Simulation_${dateStr}.pdf`);
+    } catch (error) {
+      console.error('PDF Error:', error);
+      alert("PDF generation failed. Please try again.");
+    } finally {
+      btn.innerText = "Download Pallet Simulation PDF";
+      btn.disabled = false;
+    }
+  }
+  
+  async function createSimulationPageCanvas(pallets, startIndex) {
+    // Use a fixed large scale for consistent readability (same as 3-pallet view)
+    const exportScale = 3.0;
+    
+    // Calculate canvas dimensions for these pallets
+    const maxULDLength = Math.max(...pallets.map(p => p.uldL));
+    const maxULDWidth = Math.max(...pallets.map(p => p.uldW));
+    
+    let totalWidth = CANVAS_CONFIG.PADDING;
+    let maxHeight = 0;
+    
+    pallets.forEach(pallet => {
+      totalWidth += (pallet.uldW * exportScale) + CANVAS_CONFIG.GAP;
+      maxHeight = Math.max(maxHeight, pallet.uldL * exportScale);
+    });
+    
+    const canvasWidth = totalWidth + CANVAS_CONFIG.PADDING;
+    const canvasHeight = maxHeight + CANVAS_CONFIG.BOX_START_Y + 60;
+    
+    // Create canvas
+    const canvas = document.createElement('canvas');
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    const ctx = canvas.getContext('2d');
+    
+    // Draw each pallet
+    let offsetX = CANVAS_CONFIG.PADDING;
+    
+    pallets.forEach((pallet, idx) => {
+      const globalIdx = startIndex + idx;
+      const palletDrawWidth = pallet.uldW * exportScale;
+      const palletDrawHeight = pallet.uldL * exportScale;
+      const yOffset = CANVAS_CONFIG.BOX_START_Y;
+      
+      // Draw pallet label
+      ctx.fillStyle = "#0f4c81";
+      ctx.font = "bold 18px Arial";
+      ctx.fillText(`Pallet #${globalIdx + 1}`, offsetX, yOffset - 20);
+      
+      // Draw pallet background
+      ctx.fillStyle = "#0f4c81";
+      ctx.fillRect(offsetX, yOffset, palletDrawWidth, palletDrawHeight);
+      
+      // Draw pallet border
+      ctx.strokeStyle = pallet._invalid ? "#d32f2f" : 
+                        pallet.isSmartFit ? "#2e7d32" : "#0f4c81";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(offsetX, yOffset, palletDrawWidth, palletDrawHeight);
+      
+      // Draw stacks with the export scale
+      const savedScale = state.globalScale;
+      state.globalScale = exportScale;
+      
+      pallet.stacks.forEach(stack => {
+        drawStack(
+          ctx,
+          stack,
+          offsetX + (stack.x * exportScale),
+          yOffset + (stack.y * exportScale)
+        );
+      });
+      
+      state.globalScale = savedScale;
+      offsetX += palletDrawWidth + CANVAS_CONFIG.GAP;
+    });
+    
+    return canvas;
+  }
+  
+  // ========================================
+  // PDF GENERATION - MANIFEST
+  // ========================================
+  
+  async function downloadManifestPDF() {
+    const btn = document.getElementById("btnDownloadManifest");
+    btn.innerText = "Generating PDF...";
+    btn.disabled = true;
+    
+    try {
+      const { jsPDF } = window.jspdf;
+      
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const year = now.getFullYear();
+      const dateStr = `${day}.${month}.${year}`;
+      
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      
+      // Create the manifest HTML
+      const manifestHTML = createStyledManifestHTML();
+      
+      // Create temporary div
+      const tempDiv = document.createElement('div');
+      tempDiv.style.position = 'absolute';
+      tempDiv.style.left = '-9999px';
+      tempDiv.innerHTML = manifestHTML;
+      document.body.appendChild(tempDiv);
+      
+      // Render to canvas
+      const manifestCanvas = await html2canvas(tempDiv, {
+        scale: 2,
+        logging: false,
+        useCORS: true
+      });
+      
+      document.body.removeChild(tempDiv);
+      
+      // Calculate how many pages we need with better margins
+      const margin = 15; // Increased margin
+      const maxWidth = pageWidth - (margin * 2);
+      const ratio = maxWidth / manifestCanvas.width;
+      const scaledHeight = manifestCanvas.height * ratio;
+      const maxPageHeight = pageHeight - (margin * 2);
+      
+      let currentY = 0;
+      let pageNum = 0;
+      
+      while (currentY < manifestCanvas.height) {
+        if (pageNum > 0) {
+          pdf.addPage('p', 'mm', 'a4');
+        }
+        
+        // Calculate how much of the canvas to show on this page
+        const remainingHeight = manifestCanvas.height - currentY;
+        const canvasHeightForPage = Math.min(remainingHeight, manifestCanvas.height * (maxPageHeight / scaledHeight));
+        
+        // Create a temporary canvas for this page's slice
+        const pageCanvas = document.createElement('canvas');
+        pageCanvas.width = manifestCanvas.width;
+        pageCanvas.height = canvasHeightForPage;
+        
+        const pageCtx = pageCanvas.getContext('2d');
+        pageCtx.drawImage(
+          manifestCanvas,
+          0, currentY,
+          manifestCanvas.width, canvasHeightForPage,
+          0, 0,
+          manifestCanvas.width, canvasHeightForPage
+        );
+        
+        // Add to PDF
+        const pageRatio = maxWidth / pageCanvas.width;
+        const pageImgHeight = pageCanvas.height * pageRatio;
+        
+        pdf.addImage(
+          pageCanvas.toDataURL('image/png'),
+          'PNG',
+          margin,
+          margin,
+          maxWidth,
+          Math.min(pageImgHeight, maxPageHeight)
+        );
+        
+        currentY += canvasHeightForPage;
+        pageNum++;
+        
+        // Safety break
+        if (pageNum > 50 || currentY >= manifestCanvas.height * 0.98) break;
+      }
+      
+      pdf.save(`Manifest_${dateStr}.pdf`);
+    } catch (error) {
+      console.error('PDF Error:', error);
+      alert("PDF generation failed. Please try again.");
+    } finally {
+      btn.innerText = "Download Manifest PDF";
+      btn.disabled = false;
+    }
+  }
+  
+  function createStyledManifestHTML() {
+    const pallets = state.allPalletLoads;
+    const invalidItems = state.globalOversizedItems || [];
+    
+    // Optimized for portrait PDF layout - reduced width to prevent border cutoff
+    let html = `
+      <div style="width: 750px; font-family: Arial, sans-serif; background: white; padding: 15px;">
+        <div style="text-align: center; background-color: #f0f0f0; border: 2px solid #333; padding: 12px; margin-bottom: 20px;">
+          <h2 style="margin: 0; font-size: 20px; color: #333;">Crate Manifest / Pallet</h2>
+        </div>`;
+    
+    let overallCrateNum = 1;
+    let grandTotalCrates = 0;
+    let grandTotalM2 = 0;
+    let grandTotalM3 = 0;
+    let grandTotalVolKgs = 0;
+    
+    // Create separate table for each pallet
+    pallets.forEach((pallet, palletIndex) => {
+      let palletCrates = 0;
+      let palletM2 = 0;
+      let palletM3 = 0;
+      let palletVolKgs = 0;
+      
+      html += `
+        <div style="margin-bottom: 25px; page-break-inside: avoid;">
+          <h3 style="background-color: #e3f2fd; color: #0d47a1; padding: 8px 10px; margin: 0 0 10px 0; border-left: 4px solid #1e3a5f; font-size: 14px;">
+            Pallet #${palletIndex + 1} - ${pallet.uldName}
+          </h3>
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+            <thead>
+              <tr style="background-color: #1e3a5f; color: white;">
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">Pallet No.</th>
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">L(cm)</th>
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">D(cm)</th>
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">H(cm)</th>
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">M2</th>
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">M3</th>
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">Vol.kgs</th>
+              </tr>
+            </thead>
+            <tbody>`;
+      
+      // Add items for this pallet
+      pallet.stacks.forEach(stack => {
+        stack.items.forEach(item => {
+          const l = Math.round(item.l);
+          const d = Math.round(item.d);
+          const h = Math.round(item.h);
+          const m2 = ((l * d) / 10000).toFixed(3);
+          const m3 = ((l * d * h) / 1000000).toFixed(3);
+          const volKgs = Math.round(parseFloat(m3) * 167);
+          
+          palletCrates++;
+          palletM2 += parseFloat(m2);
+          palletM3 += parseFloat(m3);
+          palletVolKgs += volKgs;
+          
+          html += `
+            <tr style="background-color: ${overallCrateNum % 2 === 0 ? '#f9f9f9' : 'white'};">
+              <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">${overallCrateNum}</td>
+              <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">${l}</td>
+              <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">${d}</td>
+              <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">${h}</td>
+              <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">${m2}</td>
+              <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">${m3}</td>
+              <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">${volKgs}</td>
+            </tr>`;
+          overallCrateNum++;
+        });
+      });
+      
+      // Pallet subtotal row
+      html += `
+              <tr style="background-color: #1e3a5f; color: white; font-weight: bold;">
+                <td style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">Subtotal</td>
+                <td style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">${palletCrates}</td>
+                <td style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">CRATES</td>
+                <td style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;"></td>
+                <td style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">${palletM2.toFixed(2)}</td>
+                <td style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">${palletM3.toFixed(2)}</td>
+                <td style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">${palletVolKgs}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>`;
+      
+      grandTotalCrates += palletCrates;
+      grandTotalM2 += palletM2;
+      grandTotalM3 += palletM3;
+      grandTotalVolKgs += palletVolKgs;
+    });
+    
+    // Grand total table
+    html += `
+      <div style="margin-top: 30px; page-break-inside: avoid;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="background-color: #0d47a1; color: white;">
+              <th style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 12px;">Grand Total</th>
+              <th style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 12px;">Total Crates</th>
+              <th style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 12px;"></th>
+              <th style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 12px;"></th>
+              <th style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 12px;">M2</th>
+              <th style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 12px;">M3</th>
+              <th style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 12px;">Vol.kgs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background-color: #bbdefb; font-weight: bold;">
+              <td style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 11px;">Total</td>
+              <td style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 11px;">${grandTotalCrates}</td>
+              <td style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 11px;">CRATES</td>
+              <td style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 11px;"></td>
+              <td style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 11px;">${grandTotalM2.toFixed(2)}</td>
+              <td style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 11px;">${grandTotalM3.toFixed(2)}</td>
+              <td style="border: 1px solid #666; padding: 8px; text-align: center; font-size: 11px;">${grandTotalVolKgs}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>`;
+    
+    // Invalid items section (if any)
+    if (invalidItems.length > 0) {
+      html += `
+        <div style="margin-top: 30px; page-break-inside: avoid;">
+          <h3 style="background-color: #ffebee; color: #c62828; padding: 8px; margin: 0 0 10px 0; border: 1px solid #ef5350; font-size: 14px;">
+            Invalid Items (Could Not Fit)
+          </h3>
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background-color: #c62828; color: white;">
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">ID</th>
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">L(cm)</th>
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">D(cm)</th>
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">H(cm)</th>
+                <th style="border: 1px solid #666; padding: 6px; text-align: center; font-size: 11px;">Reason</th>
+              </tr>
+            </thead>
+            <tbody>`;
+      
+      invalidItems.forEach((item, idx) => {
+        html += `
+              <tr style="background-color: ${idx % 2 === 0 ? '#ffebee' : '#ffcdd2'};">
+                <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">${item.id}</td>
+                <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">${Math.round(item.l)}</td>
+                <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">${Math.round(item.d)}</td>
+                <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">${Math.round(item.h)}</td>
+                <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 10px;">Could not fit</td>
+              </tr>`;
+      });
+      
+      html += `
+            </tbody>
+          </table>
+        </div>`;
+    }
+    
+    html += `</div>`;
+    return html;
   }
 </script>
 </body>
